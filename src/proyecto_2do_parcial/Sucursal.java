@@ -8,6 +8,8 @@ package proyecto_2do_parcial;
 import Models.Ciudades;
 import Models.Sucursales;
 import javax.swing.JOptionPane;
+import static proyecto_2do_parcial.Ciudad.mlgeneral;
+import static proyecto_2do_parcial.Ciudad.r;
 
 /**
  *
@@ -16,24 +18,32 @@ import javax.swing.JOptionPane;
 public class Sucursal extends javax.swing.JFrame
 {
 
-     public static multilista mul = new multilista();
-    
-    
+    public static ML mul = new ML();
+    public static NodoLista rGen = null;
+
     /**
      * Creates new form Farmacia
      */
-    public Sucursal()
+    public Sucursal(ML ml)
     {
         initComponents();
-       
+        mul = ml;
+        rGen = mul.getR();
+
         FCombo.removeAllItems();
         CCombo.removeAllItems();
 
         NodoLista aux = mul.getR();
 
-        while (aux.getSig() != null) {
-            FCombo.addItem(aux.etiqueta);
-            aux = aux.getSig();
+        r = mul.r;
+
+        if (aux != null) {
+            //aqui se llena el combobox con el primer nivel, osease, farmacias
+            while (aux != null) {
+                FCombo.addItem(aux.etiqueta);
+                aux = aux.getSig();
+            }
+            FCombo.getSelectedItem();
         }
 
     }
@@ -119,6 +129,13 @@ public class Sucursal extends javax.swing.JFrame
         jLabel6.setText("Seleccione Ciudad");
 
         CCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CCombo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                CComboActionPerformed(evt);
+            }
+        });
 
         GuardarSuc.setText("Guardar");
         GuardarSuc.addActionListener(new java.awt.event.ActionListener()
@@ -218,14 +235,12 @@ public class Sucursal extends javax.swing.JFrame
 
     private void GuardarSucActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_GuardarSucActionPerformed
     {//GEN-HEADEREND:event_GuardarSucActionPerformed
-         multilista multilistaF = new multilista();// en vez de ser una nueva multilista, sacamos todos los datos de el archivo bianrio
+        // en vez de ser una nueva multilista, sacamos todos los datos de el archivo bianrio
         //así nos traeríamos toda la lista ya armada y de chingadazo
-        
 
-        
         if (SucKey.getText().length() > 0 && Nombre.getText().length() > 0 && Post.getText().length() > 0) {
             //asignamos valores
-            Models.Sucursales suc  = new Sucursales();
+            Models.Sucursales suc = new Sucursales();
             suc.setClave(SucKey.getText());
             suc.setCodigoPostal(Post.getText());
             suc.setNombre(Nombre.getText());
@@ -237,40 +252,44 @@ public class Sucursal extends javax.swing.JFrame
             etqs[1] = CCombo.getSelectedItem().toString();
             etqs[2] = SucKey.getText();
             //insertamos multilista
-            multilistaF.inserta(multilistaF.getR(), nls, etqs, 2);
-            
+            mul.r= mul.inserta(etqs, 0, nls, mul.getR());
+
             //falta agregar al archivo para guardarlo
-            
-            
-            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
-            
+
         }
-        
-        
-        
-        
+        Producto p = new Producto(mul);
+        p.setVisible(true);
     }//GEN-LAST:event_GuardarSucActionPerformed
 
     private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed
     {//GEN-HEADEREND:event_FComboActionPerformed
-        NodoLista aux2 = new NodoLista();
-        NodoLista nlsc = mul.getR();
-        while(nlsc.getSig()!=null){
-            if(nlsc.getEtiqueta() == FCombo.getSelectedItem()){
-                aux2 = nlsc;
-                break;
-            }
-            nlsc = nlsc.getSig();
-        }
-        if (aux2.getAbajo() != null) {
-            while (aux2.getSig() != null) {
-                CCombo.addItem(aux2.etiqueta);
-                aux2 = aux2.getSig();
+        CCombo.removeAllItems();
+        NodoLista aux;
+        aux = mul.getR();
+        if (FCombo.getSelectedItem() != null) {
+            while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+                aux = aux.getSig();
             }
         }
+
+        if (aux != null) {
+            if (aux.getAbajo() != null) {
+                aux = aux.getAbajo();
+                while (aux != null) {
+                    CCombo.addItem(aux.etiqueta);
+                    aux = aux.getSig();
+                }
+            }
+        }
+
     }//GEN-LAST:event_FComboActionPerformed
+
+    private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
+    {//GEN-HEADEREND:event_CComboActionPerformed
+
+    }//GEN-LAST:event_CComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,7 +325,7 @@ public class Sucursal extends javax.swing.JFrame
         {
             public void run()
             {
-                new Sucursal().setVisible(true);
+                new Sucursal(mul).setVisible(true);
             }
         });
     }

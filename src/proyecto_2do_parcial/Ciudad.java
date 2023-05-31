@@ -227,8 +227,8 @@ public static NodoLista r = null;
             
         }
         
-        Sucursal s = new Sucursal();
-       
+        Sucursal s = new Sucursal(mlgeneral);
+        s.setVisible(true);
         
         
 

@@ -12,7 +12,7 @@ package proyecto_2do_parcial;
 public class Menu extends javax.swing.JFrame
 {
 
-    multilista ml = new multilista();
+    ML ml = new ML();
     
     
     /**

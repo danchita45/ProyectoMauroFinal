@@ -8,6 +8,7 @@ package proyecto_2do_parcial;
 import Models.Productos;
 import Models.Sucursales;
 import javax.swing.JOptionPane;
+import static proyecto_2do_parcial.Ciudad.mlgeneral;
 import static proyecto_2do_parcial.Sucursal.mul;
 
 /**
@@ -17,25 +18,31 @@ import static proyecto_2do_parcial.Sucursal.mul;
 public class Producto extends javax.swing.JFrame
 {
 
-    public static multilista mul = new multilista();
+    public static ML mul = new ML();
     NodoLista AuxGen = new NodoLista();
 
     /**
      * Creates new form Farmacia
      */
-    public Producto()
+    public Producto(ML p)
     {
         initComponents();
         FCombo.removeAllItems();
         CCombo.removeAllItems();
         SCombo.removeAllItems();
+        mul = p;
+        NodoLista aux;
+        aux = mul.r;
 
-        NodoLista aux = mul.getR();
-        while (aux.getSig() != null) {
-            FCombo.addItem(aux.etiqueta);
-            aux = aux.getSig();
+        if (aux != null) {
+            //aqui se llena el combobox con el primer nivel, osease, farmacias
+            while (aux != null) {
+                FCombo.addItem(aux.etiqueta);
+                aux = aux.getSig();
+            }
+            FCombo.getSelectedItem();
         }
-
+        ponerCombox(p);
     }
 
     /**
@@ -276,29 +283,56 @@ public class Producto extends javax.swing.JFrame
 
     private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed
     {//GEN-HEADEREND:event_FComboActionPerformed
-
-        NodoLista aux2 = new NodoLista();
-        NodoLista nlsc = mul.getR();
-        while(nlsc.getSig()!=null){
-            if(nlsc.getEtiqueta() == FCombo.getSelectedItem()){
-                aux2 = nlsc;
-                AuxGen = aux2;
-                break;
-            }
-            nlsc = nlsc.getSig();
-        }
-        
-        if (aux2.getAbajo() != null) {
-            while (aux2.getSig() != null) {
-                CCombo.addItem(aux2.etiqueta);
-                aux2 = aux2.getSig();
-            }
-        }
+       
     }//GEN-LAST:event_FComboActionPerformed
 
+    
+    
+    public void ponerCombox(ML m){
+         CCombo.removeAllItems();
+        NodoLista aux;
+        NodoLista auxc=null;
+        aux = m.getR();
+        if (FCombo.getSelectedItem() != null) {
+            while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+                aux = aux.getSig();
+                
+            }
+        }
+        if (aux != null) {
+            if (aux.getAbajo() != null) {
+                aux = aux.getAbajo();
+                while (aux != null) {
+                    CCombo.addItem(aux.etiqueta);
+                    aux = aux.getSig();
+                    auxc =aux;
+                }
+            }
+        }
+        
+        
+        
+       String opc =  (String) CCombo.getSelectedItem();
+       String et = auxc.getEtiqueta();
+            if (auxc != null) {
+                while (auxc.getEtiqueta() != CCombo.getSelectedItem() || aux != null) {
+                    auxc = auxc.getSig();
+                }
+            }
+
+        if (auxc != null) {
+            if (auxc.getAbajo() != null) {
+                auxc = auxc.getAbajo();
+                while (auxc != null) {
+                    SCombo.addItem(auxc.etiqueta);
+                    auxc = auxc.getSig();
+                }
+            }
+        }
+    }
     private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
     {//GEN-HEADEREND:event_CComboActionPerformed
-       
+
         NodoLista aux2 = AuxGen;
         if (aux2.getAbajo() != null) {
             while (aux2.getSig() != null) {
@@ -310,9 +344,9 @@ public class Producto extends javax.swing.JFrame
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
-       if (Key.getText().length() > 0 && Nombre.getText().length() > 0 && price.getText().length() > 0 && Existencia.getText().length()>0) {
+        if (Key.getText().length() > 0 && Nombre.getText().length() > 0 && price.getText().length() > 0 && Existencia.getText().length() > 0) {
             //asignamos valores
-                
+
             Models.Productos p = new Productos(Key.getText(), Nombre.getText(), Double.parseDouble(price.getText()), Integer.parseInt(Existencia.getText()));
             //hacemos nodo 
             NodoLista nls = new NodoLista(Key.getText(), p);
@@ -323,21 +357,15 @@ public class Producto extends javax.swing.JFrame
             etqs[2] = SCombo.getSelectedItem().toString();
             etqs[3] = Key.getText();
             //insertamos multilista
-            mul.inserta(mul.getR(), nls, etqs, 3);
-            
+            mul.inserta(etqs, 0, nls, mul.getR());
+
             //falta agregar al archivo para guardarlo
-            
-            
-            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
-            
+
         }
-    
-    
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -374,7 +402,7 @@ public class Producto extends javax.swing.JFrame
         {
             public void run()
             {
-                new Producto().setVisible(true);
+                new Producto(mul).setVisible(true);
             }
         });
     }
