@@ -283,20 +283,21 @@ public class Producto extends javax.swing.JFrame
 
     private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed
     {//GEN-HEADEREND:event_FComboActionPerformed
-            ponerCombox(mul);
+        ponerCombox(mul);
     }//GEN-LAST:event_FComboActionPerformed
 
-    
-    
-    public void ponerCombox(ML m){
-         CCombo.removeAllItems();
+    public void ponerCombox(ML m)
+    {
+        CCombo.removeAllItems();
         NodoLista aux;
-        NodoLista auxc=null;
+        NodoLista auxc = null;
+        int bnd = 0;
+
         aux = m.getR();
         if (FCombo.getSelectedItem() != null) {
             while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
                 aux = aux.getSig();
-                
+
             }
         }
         if (aux != null) {
@@ -304,39 +305,118 @@ public class Producto extends javax.swing.JFrame
                 aux = aux.getAbajo();
                 while (aux != null) {
                     CCombo.addItem(aux.etiqueta);
-                    auxc =aux;
+                    auxc = aux;
                     aux = aux.getSig();
-                    
+
                 }
             }
         }
-            if (auxc != null) {
-                while (auxc.getEtiqueta() != CCombo.getSelectedItem() || aux != null) {
-                    auxc = auxc.getSig();
+
+        if (auxc != null) {
+            while (auxc.getAnt() != null) {
+                
+                auxc = auxc.getAnt();
+            }
+        }
+
+        
+        
+        if (CCombo.getSelectedItem() != null) {
+
+            while (bnd != 1) {
+                if (auxc.getEtiqueta() == CCombo.getSelectedItem()) {
+                    bnd = 1;
+                    AuxGen = auxc;
+                } else {
+                    if (auxc.getSig() != null) {
+                        auxc = auxc.getSig();
+                    } else {
+                        break;
+                    }
                 }
             }
+        }
+
+
         SCombo.removeAllItems();
-        if (auxc != null) {
-            if (auxc.getAbajo() != null) {
-                auxc = auxc.getAbajo();
-                while (auxc != null) {
-                    SCombo.addItem(auxc.etiqueta);
-                    auxc = auxc.getSig();
+        if (AuxGen != null) {
+            if (AuxGen.getAbajo() != null) {
+                AuxGen = AuxGen.getAbajo();
+                while (AuxGen != null) {
+                    SCombo.addItem(AuxGen.etiqueta);
+                    AuxGen = AuxGen.getSig();
                 }
             }
         }
     }
     private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
     {//GEN-HEADEREND:event_CComboActionPerformed
+        
+        llenaultimo(mul);
+    }//GEN-LAST:event_CComboActionPerformed
 
-        NodoLista aux2 = AuxGen;
-        if (aux2.getAbajo() != null) {
-            while (aux2.getSig() != null) {
-                SCombo.addItem(aux2.etiqueta);
-                aux2 = aux2.getSig();
+    public void llenaultimo(ML ml)
+    {
+        
+        NodoLista aux;
+        NodoLista auxc = null;
+        int bnd = 0;
+
+        aux = ml.getR();
+        if (FCombo.getSelectedItem() != null) {
+            while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+                aux = aux.getSig();
+
             }
         }
-    }//GEN-LAST:event_CComboActionPerformed
+        if (aux != null) {
+            if (aux.getAbajo() != null) {
+                aux = aux.getAbajo();
+                while (aux != null) {
+                    auxc = aux;
+                    aux = aux.getSig();
+
+                }
+            }
+        }
+
+        if (auxc != null) {
+            while (auxc.getAnt() != null) {
+                auxc = auxc.getAnt();
+            }
+        }
+
+        
+        
+        if (CCombo.getSelectedItem() != null) {
+
+            while (bnd != 1) {
+                if (auxc.getEtiqueta() == CCombo.getSelectedItem()) {
+                    bnd = 1;
+                    AuxGen = auxc;
+                } else {
+                    if (auxc.getSig() != null) {
+                        auxc = auxc.getSig();
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        SCombo.removeAllItems();
+        if (AuxGen != null) {
+            if (AuxGen.getAbajo() != null) {
+                AuxGen = AuxGen.getAbajo();
+                while (AuxGen != null) {
+                    SCombo.addItem(AuxGen.etiqueta);
+                    AuxGen = AuxGen.getSig();
+                }
+            }
+        }
+    }
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
