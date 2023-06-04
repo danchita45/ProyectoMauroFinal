@@ -283,7 +283,7 @@ public class Producto extends javax.swing.JFrame
 
     private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed
     {//GEN-HEADEREND:event_FComboActionPerformed
-       
+            ponerCombox(mul);
     }//GEN-LAST:event_FComboActionPerformed
 
     
@@ -304,22 +304,18 @@ public class Producto extends javax.swing.JFrame
                 aux = aux.getAbajo();
                 while (aux != null) {
                     CCombo.addItem(aux.etiqueta);
-                    aux = aux.getSig();
                     auxc =aux;
+                    aux = aux.getSig();
+                    
                 }
             }
         }
-        
-        
-        
-       String opc =  (String) CCombo.getSelectedItem();
-       String et = auxc.getEtiqueta();
             if (auxc != null) {
                 while (auxc.getEtiqueta() != CCombo.getSelectedItem() || aux != null) {
                     auxc = auxc.getSig();
                 }
             }
-
+        SCombo.removeAllItems();
         if (auxc != null) {
             if (auxc.getAbajo() != null) {
                 auxc = auxc.getAbajo();
@@ -351,14 +347,17 @@ public class Producto extends javax.swing.JFrame
             //hacemos nodo 
             NodoLista nls = new NodoLista(Key.getText(), p);
             //armamos etqs
-            String[] etqs = new String[3];
+            String[] etqs = new String[4];
             etqs[0] = FCombo.getSelectedItem().toString();
             etqs[1] = CCombo.getSelectedItem().toString();
             etqs[2] = SCombo.getSelectedItem().toString();
             etqs[3] = Key.getText();
             //insertamos multilista
             mul.inserta(etqs, 0, nls, mul.getR());
-
+            Menu m = new Menu();
+            m.ml = mul;
+            m.setVisible(true);
+            this.dispose();
             //falta agregar al archivo para guardarlo
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");

@@ -261,6 +261,7 @@ public class Sucursal extends javax.swing.JFrame
         }
         Producto p = new Producto(mul);
         p.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_GuardarSucActionPerformed
 
     private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed

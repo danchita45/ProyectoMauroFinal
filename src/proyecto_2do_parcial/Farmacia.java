@@ -20,11 +20,10 @@ public class Farmacia extends javax.swing.JFrame
     /**
      * Creates new form Farmacia
      */
-    public Farmacia()
+    public Farmacia(ML m)
     {
         initComponents();
-        
-        
+        mul = m;
     }
 
     /**
@@ -219,6 +218,7 @@ public class Farmacia extends javax.swing.JFrame
         NodoLista r = mul.r;
         c.mlgeneral = mul;
         c.setVisible(true);
+        this.dispose();
         
     }//GEN-LAST:event_GFarmaciaActionPerformed
 
@@ -282,7 +282,7 @@ public class Farmacia extends javax.swing.JFrame
         {
             public void run()
             {
-                new Farmacia().setVisible(true);
+                new Farmacia(mul).setVisible(true);
             }
         });
     }

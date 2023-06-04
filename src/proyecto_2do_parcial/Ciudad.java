@@ -229,6 +229,7 @@ public static NodoLista r = null;
         
         Sucursal s = new Sucursal(mlgeneral);
         s.setVisible(true);
+        this.dispose();
         
         
 
