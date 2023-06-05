@@ -5,6 +5,7 @@
  */
 package proyecto_2do_parcial;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -33,24 +34,29 @@ public class Consulta_F extends javax.swing.JFrame
             n = n.getSig();
         }
 
-
         DefaultTableModel dt = new DefaultTableModel(new String[]{"Nombre", "Clave", "TDS", "RFC"}, cuenta);
 
         tFarmacia.setModel(dt);
         TableModel modeldata = tFarmacia.getModel();
-        
+
         int i = 0;
-        while (nr != null) {
-            Object FarcFarmacia =  nr.getObj();
-            Models.Farmacias f = (Models.Farmacias) FarcFarmacia;
-            
-            modeldata.setValueAt(f.getNombre(), i, 0);
-            modeldata.setValueAt(f.getClave(), i, 1);
-            modeldata.setValueAt(f.getTDS(), i, 2);
-            modeldata.setValueAt(f.getRFC(), i, 3);
-            i++;
-            nr = nr.getSig();
+
+        if (nr != null) {
+            while (nr != null) {
+                Object FarcFarmacia = nr.getObj();
+                Models.Farmacias f = (Models.Farmacias) FarcFarmacia;
+
+                modeldata.setValueAt(f.getNombre(), i, 0);
+                modeldata.setValueAt(f.getClave(), i, 1);
+                modeldata.setValueAt(f.getTDS(), i, 2);
+                modeldata.setValueAt(f.getRFC(), i, 3);
+                i++;
+                nr = nr.getSig();
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay datos");
         }
+
     }
 
     public int busDic(String buscado)

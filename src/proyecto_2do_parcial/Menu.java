@@ -336,7 +336,7 @@ public class Menu extends javax.swing.JFrame
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem8ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem8ActionPerformed
-        new Consulta_C().setVisible(true);
+        new Consulta_C(ml).setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem9ActionPerformed
