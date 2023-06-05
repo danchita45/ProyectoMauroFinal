@@ -201,9 +201,6 @@ public class Consulta_C extends javax.swing.JFrame
 
     private void llenaTabla( ListaDoblementeLigada c)
     {
-        
-        
-        
         DefaultTableModel dt = new DefaultTableModel(new String[]{"Ciudad", "Estado", "Municipio"}, c.count());
         tCiudad.setModel(dt);
         TableModel modeldata = tCiudad.getModel();

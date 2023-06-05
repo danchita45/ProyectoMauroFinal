@@ -341,12 +341,12 @@ public class Menu extends javax.swing.JFrame
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem9ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem9ActionPerformed
-       new Consulta_S().setVisible(true);
+       new Consulta_S(ml).setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem10ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem10ActionPerformed
-        new Consulta_P().setVisible(true);
+        new Consulta_P(ml).setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem11ActionPerformed
