@@ -5,6 +5,9 @@
  */
 package proyecto_2do_parcial;
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Angeles
@@ -12,12 +15,54 @@ package proyecto_2do_parcial;
 public class Consulta_F extends javax.swing.JFrame
 {
 
+    public static ML mul = new ML();
+    public static String diccionario[];
+
     /**
      * Creates new form Farmacia
      */
-    public Consulta_F()
+    public Consulta_F(ML ml)
     {
         initComponents();
+        mul = ml;
+        NodoLista n = ml.getR();
+        NodoLista nr = ml.getR();
+        int cuenta = 0;
+        while (n != null) {
+            cuenta++;
+            n = n.getSig();
+        }
+
+
+        DefaultTableModel dt = new DefaultTableModel(new String[]{"Nombre", "Clave", "TDS", "RFC"}, cuenta);
+
+        tFarmacia.setModel(dt);
+        TableModel modeldata = tFarmacia.getModel();
+        
+        int i = 0;
+        while (nr != null) {
+            Object FarcFarmacia =  nr.getObj();
+            Models.Farmacias f = (Models.Farmacias) FarcFarmacia;
+            
+            modeldata.setValueAt(f.getNombre(), i, 0);
+            modeldata.setValueAt(f.getClave(), i, 1);
+            modeldata.setValueAt(f.getTDS(), i, 2);
+            modeldata.setValueAt(f.getRFC(), i, 3);
+            i++;
+            nr = nr.getSig();
+        }
+    }
+
+    public int busDic(String buscado)
+    {
+
+        for (int i = 0; i < diccionario.length; i++) {
+            if (diccionario[i] == buscado) {
+                return 1;
+
+            }
+        }
+        return 0;
     }
 
     /**
@@ -33,14 +78,14 @@ public class Consulta_F extends javax.swing.JFrame
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tFarmacia = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Consulta de Farmacias");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tFarmacia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][]
             {
                 {null, null, null},
@@ -64,10 +109,10 @@ public class Consulta_F extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0)
+        jScrollPane1.setViewportView(tFarmacia);
+        if (tFarmacia.getColumnModel().getColumnCount() > 0)
         {
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            tFarmacia.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -119,27 +164,20 @@ public class Consulta_F extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Consulta_F.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Consulta_F.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Consulta_F.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Consulta_F.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -164,7 +202,7 @@ public class Consulta_F extends javax.swing.JFrame
         {
             public void run()
             {
-                new Consulta_F().setVisible(true);
+                new Consulta_F(mul).setVisible(true);
             }
         });
     }
@@ -173,6 +211,6 @@ public class Consulta_F extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tFarmacia;
     // End of variables declaration//GEN-END:variables
 }
