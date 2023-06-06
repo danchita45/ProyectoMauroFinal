@@ -28,7 +28,7 @@ public static NodoLista r = null;
         
         NodoLista aux;
         aux = mul.r;
-
+         
         mlgeneral = mul;
         if(aux!=null){
               //aqui se llena el combobox con el primer nivel, osease, farmacias
