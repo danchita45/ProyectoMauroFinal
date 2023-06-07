@@ -7,6 +7,10 @@ package proyecto_2do_parcial;
 
 import Models.Productos;
 import Models.Sucursales;
+import Models.lsarchivo;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static proyecto_2do_parcial.Ciudad.mlgeneral;
 import static proyecto_2do_parcial.Sucursal.mul;
@@ -43,6 +47,10 @@ public class Producto extends javax.swing.JFrame
             FCombo.getSelectedItem();
         }
         ponerCombox(p);
+        if (FCombo.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay farmacias, imposible agregar, agregue una farmacia");
+            jButton1.setEnabled(false);
+        }
     }
 
     /**
@@ -311,16 +319,17 @@ public class Producto extends javax.swing.JFrame
                 }
             }
         }
-
+        if (CCombo.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay Ciudades, imposible agregar, agregue una Ciudad");
+            jButton1.setEnabled(false);
+        }
         if (auxc != null) {
             while (auxc.getAnt() != null) {
-                
+
                 auxc = auxc.getAnt();
             }
         }
 
-        
-        
         if (CCombo.getSelectedItem() != null) {
 
             while (bnd != 1) {
@@ -337,7 +346,6 @@ public class Producto extends javax.swing.JFrame
             }
         }
 
-
         SCombo.removeAllItems();
         if (AuxGen != null) {
             if (AuxGen.getAbajo() != null) {
@@ -348,16 +356,21 @@ public class Producto extends javax.swing.JFrame
                 }
             }
         }
+
+        if (SCombo.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay Sucursales, imposible agregar, agregue una Sucursal");
+            jButton1.setEnabled(false);
+        }
     }
     private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
     {//GEN-HEADEREND:event_CComboActionPerformed
-        
+
         llenaultimo(mul);
     }//GEN-LAST:event_CComboActionPerformed
 
     public void llenaultimo(ML ml)
     {
-        
+
         NodoLista aux;
         NodoLista auxc = null;
         int bnd = 0;
@@ -386,8 +399,6 @@ public class Producto extends javax.swing.JFrame
             }
         }
 
-        
-        
         if (CCombo.getSelectedItem() != null) {
 
             while (bnd != 1) {
@@ -403,7 +414,6 @@ public class Producto extends javax.swing.JFrame
                 }
             }
         }
-
 
         SCombo.removeAllItems();
         if (AuxGen != null) {
@@ -436,6 +446,13 @@ public class Producto extends javax.swing.JFrame
             mul.inserta(etqs, 0, nls, mul.getR());
             Menu m = new Menu();
             m.ml = mul;
+            lsarchivo a = new lsarchivo();
+            try {
+                a.InsertarnuevaLista(mul);
+            } catch (IOException ex) {
+                Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             m.setVisible(true);
             this.dispose();
             //falta agregar al archivo para guardarlo

@@ -7,7 +7,12 @@ package proyecto_2do_parcial;
 
 import Models.Ciudades;
 import Models.Farmacias;
+import Models.lsarchivo;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static proyecto_2do_parcial.Farmacia.mul;
 
 /**
  *
@@ -15,8 +20,10 @@ import javax.swing.JOptionPane;
  */
 public class Ciudad extends javax.swing.JFrame
 {
-public static ML mlgeneral = new ML();
-public static NodoLista r = null;
+
+    public static ML mlgeneral = new ML();
+    public static NodoLista r = null;
+
     /**
      * Creates new form Farmacia
      */
@@ -25,20 +32,24 @@ public static NodoLista r = null;
         initComponents();
         FarmaciaCombo.removeAllItems();
         r = mul.r;
-        
+
         NodoLista aux;
         aux = mul.r;
-         
-        mlgeneral = mul;
-        if(aux!=null){
-              //aqui se llena el combobox con el primer nivel, osease, farmacias
-        while (aux != null) {
-            FarmaciaCombo.addItem(aux.etiqueta);
-            aux = aux.getSig();
-        }
-        FarmaciaCombo.getSelectedItem();     
-        }
 
+        mlgeneral = mul;
+        if (aux != null) {
+            //aqui se llena el combobox con el primer nivel, osease, farmacias
+            while (aux != null) {
+                FarmaciaCombo.addItem(aux.etiqueta);
+                aux = aux.getSig();
+            }
+            FarmaciaCombo.getSelectedItem();
+        }
+        if(FarmaciaCombo.getSelectedItem()==null){
+            JOptionPane.showMessageDialog(this, "No hay farmacias, imposible agregar, agregue una farmacia");
+            GuardarCiudad.setEnabled(false);
+        }
+        
     }
 
     /**
@@ -117,6 +128,13 @@ public static NodoLista r = null;
         jLabel5.setText("Seleccione Farmacia");
 
         FarmaciaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        FarmaciaCombo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                FarmaciaComboActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,7 +161,7 @@ public static NodoLista r = null;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(323, 323, 323)
                         .addComponent(GuardarCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(324, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +184,7 @@ public static NodoLista r = null;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(FarmaciaCombo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(GuardarCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -175,11 +193,16 @@ public static NodoLista r = null;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 42, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -205,36 +228,42 @@ public static NodoLista r = null;
     {//GEN-HEADEREND:event_GuardarCiudadActionPerformed
         // en vez de ser una nueva multilista, sacamos todos los datos de el archivo bianrio
         //así nos traeríamos toda la lista ya armada y de chingadazo
-        
 
-        
         if (municipiotxt.getText().length() > 0 && Estadotxt.getText().length() > 0 && ciudadtxt.getText().length() > 0) {
             Models.Ciudades NCiudad = new Ciudades();
             NCiudad.setCiudad(ciudadtxt.getText());
             NCiudad.setMunicipio(municipiotxt.getText());
             NCiudad.setEstado(Estadotxt.getText());
-                
-            
+
             NodoLista nls = new NodoLista(ciudadtxt.getText(), NCiudad);
             String[] etqs = new String[2];
             etqs[0] = FarmaciaCombo.getSelectedItem().toString();
             etqs[1] = ciudadtxt.getText();
-            
+
             mlgeneral.inserta(etqs, 0, nls, r);
-            
+            lsarchivo a = new lsarchivo();
+            try {
+                a.InsertarnuevaLista(mlgeneral);
+            } catch (IOException ex) {
+                Logger.getLogger(Ciudad.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
-            
+
         }
-        
+
         Sucursal s = new Sucursal(mlgeneral);
         s.setVisible(true);
         this.dispose();
-        
-        
 
 
     }//GEN-LAST:event_GuardarCiudadActionPerformed
+
+    private void FarmaciaComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FarmaciaComboActionPerformed
+    {//GEN-HEADEREND:event_FarmaciaComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FarmaciaComboActionPerformed
 
     /**
      * @param args the command line arguments

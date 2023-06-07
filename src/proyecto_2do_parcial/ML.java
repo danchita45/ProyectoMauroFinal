@@ -1,6 +1,8 @@
 package proyecto_2do_parcial;
 
-public class ML
+import java.io.Serializable;
+
+public class ML implements Serializable
 {
 
     NodoLista<Object> r = null;

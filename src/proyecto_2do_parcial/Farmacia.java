@@ -6,6 +6,10 @@
 package proyecto_2do_parcial;
 
 import Models.Farmacias;
+import Models.lsarchivo;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -205,14 +209,18 @@ public class Farmacia extends javax.swing.JFrame
 
     private void GFarmaciaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_GFarmaciaActionPerformed
     {//GEN-HEADEREND:event_GFarmaciaActionPerformed
-        if (GuardarFarmacia() == 1) {
-            FNombre.setText("");
-            FKey.setText("");
-            FRFC.setText("");
-            FSociety.setText("");
-            JOptionPane.showMessageDialog(this, "Se ha guardado la informacion");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error Al Guardar");
+        try {
+            if (GuardarFarmacia() == 1) {
+                FNombre.setText("");
+                FKey.setText("");
+                FRFC.setText("");
+                FSociety.setText("");
+                JOptionPane.showMessageDialog(this, "Se ha guardado la informacion");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error Al Guardar");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Farmacia.class.getName()).log(Level.SEVERE, null, ex);
         }
         Ciudad c = new Ciudad(mul);
         NodoLista r = mul.r;
@@ -222,7 +230,7 @@ public class Farmacia extends javax.swing.JFrame
         
     }//GEN-LAST:event_GFarmaciaActionPerformed
 
-    public int GuardarFarmacia()
+    public int GuardarFarmacia() throws IOException
     {
         if (FNombre.getText().length() > 0 && FKey.getText().length() > 0 && FRFC.getText().length() > 0 && FSociety.getText().length() > 0) {
             Models.Farmacias farmacia = new Farmacias();
@@ -240,7 +248,8 @@ public class Farmacia extends javax.swing.JFrame
             r=mul.inserta(etqs, 0, nls, r);
             mul.r=r;
             
-            
+            lsarchivo a = new lsarchivo();
+            a.InsertarnuevaLista(mul);
             return 1;
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");

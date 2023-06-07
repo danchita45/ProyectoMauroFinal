@@ -5,11 +5,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Angeles
  */
-public class Productos
+public class Productos implements Serializable
 {
     String Clave, nombre;
     double precio;

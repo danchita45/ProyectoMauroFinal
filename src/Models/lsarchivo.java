@@ -4,8 +4,7 @@
  */
 package Models;
 
-import proyecto_2do_parcial.ListaDobleCircular;
-import proyecto_2do_parcial.Sucursal;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,8 +15,7 @@ import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import proyecto_2do_parcial.NodoLista;
-import proyecto_2do_parcial.multilista;
+import proyecto_2do_parcial.ML;
 
 /**
  *
@@ -51,19 +49,15 @@ public class lsarchivo {
         return true;
     }
 
-    public multilista SacaDatos() {
+    public ML SacaDatos() {
         File archivo = new File("listas.dat");
-        multilista np = null;
-        NodoLista nld = new NodoLista();
+        ML np = null;
         try {
             FileInputStream fis = new FileInputStream(archivo);
             ObjectInputStream ois;
             while (fis.available() > 0) {
                 ois = new ObjectInputStream(fis);
-                
-                nld = (NodoLista) ois.readObject();
-                
-                
+                np = (ML) ois.readObject();
             }
         } catch (Exception e) {
             System.out.println("Error");

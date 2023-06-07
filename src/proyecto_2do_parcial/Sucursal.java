@@ -7,6 +7,10 @@ package proyecto_2do_parcial;
 
 import Models.Ciudades;
 import Models.Sucursales;
+import Models.lsarchivo;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static proyecto_2do_parcial.Ciudad.mlgeneral;
 import static proyecto_2do_parcial.Ciudad.r;
@@ -44,6 +48,10 @@ public class Sucursal extends javax.swing.JFrame
                 aux = aux.getSig();
             }
             FCombo.getSelectedItem();
+        }
+        if (FCombo.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay farmacias, imposible agregar, agregue una farmacia");
+            GuardarSuc.setEnabled(false);
         }
 
     }
@@ -252,9 +260,14 @@ public class Sucursal extends javax.swing.JFrame
             etqs[1] = CCombo.getSelectedItem().toString();
             etqs[2] = SucKey.getText();
             //insertamos multilista
-            mul.r= mul.inserta(etqs, 0, nls, mul.getR());
-
-            //falta agregar al archivo para guardarlo
+            mul.r = mul.inserta(etqs, 0, nls, mul.getR());
+            lsarchivo a = new lsarchivo();
+            try {
+                a.InsertarnuevaLista(mul);
+                //falta agregar al archivo para guardarlo
+            } catch (IOException ex) {
+                Logger.getLogger(Sucursal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
 
@@ -283,6 +296,12 @@ public class Sucursal extends javax.swing.JFrame
                     aux = aux.getSig();
                 }
             }
+        }
+
+        if (CCombo.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay Ciudades, imposible agregar, agregue una Ciudad");
+            GuardarSuc.setEnabled(false);
+            this.dispose();
         }
 
     }//GEN-LAST:event_FComboActionPerformed

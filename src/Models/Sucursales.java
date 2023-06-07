@@ -5,11 +5,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Angeles
  */
-public class Sucursales
+public class Sucursales implements Serializable
 {
     String Clave,Nombre,CodigoPostal;
 

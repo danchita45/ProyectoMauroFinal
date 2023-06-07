@@ -1,5 +1,7 @@
 package proyecto_2do_parcial;
 
+import java.io.Serializable;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,7 +12,7 @@ package proyecto_2do_parcial;
  *
  * @author Angeles
  */
-public class NodoLista<T>
+public class NodoLista<T> implements Serializable
 {
 
     String etiqueta;

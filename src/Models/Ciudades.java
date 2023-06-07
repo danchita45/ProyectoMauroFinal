@@ -5,11 +5,13 @@
  */
 package Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Angeles
  */
-public class Ciudades
+public class Ciudades implements Serializable
 {
     String Estado, Municipio, Ciudad;
 
