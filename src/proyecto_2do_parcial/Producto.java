@@ -210,7 +210,7 @@ public class Producto extends javax.swing.JFrame
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(248, 248, 248)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,41 +254,92 @@ public class Producto extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(129, 129, 129))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NombreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NombreActionPerformed
-    {//GEN-HEADEREND:event_NombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NombreActionPerformed
+    private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed
+    {//GEN-HEADEREND:event_FComboActionPerformed
+        ponerCombox(mul);
+    }//GEN-LAST:event_FComboActionPerformed
 
-    private void KeyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_KeyActionPerformed
-    {//GEN-HEADEREND:event_KeyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_KeyActionPerformed
+    private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
+    {//GEN-HEADEREND:event_CComboActionPerformed
 
-    private void ExistenciaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ExistenciaActionPerformed
-    {//GEN-HEADEREND:event_ExistenciaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExistenciaActionPerformed
+        llenaultimo(mul);
+    }//GEN-LAST:event_CComboActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        if (Key.getText().length() > 0 && Nombre.getText().length() > 0 && price.getText().length() > 0 && Existencia.getText().length() > 0)
+        {
+            //asignamos valores
+
+            Models.Productos p = new Productos(Key.getText(), Nombre.getText(), Double.parseDouble(price.getText()), Integer.parseInt(Existencia.getText()));
+            //hacemos nodo
+            NodoLista nls = new NodoLista(Key.getText(), p);
+            //armamos etqs
+            String[] etqs = new String[4];
+            etqs[0] = FCombo.getSelectedItem().toString();
+            etqs[1] = CCombo.getSelectedItem().toString();
+            etqs[2] = SCombo.getSelectedItem().toString();
+            etqs[3] = Key.getText();
+            //insertamos multilista
+            mul.inserta(etqs, 0, nls, mul.getR());
+            Menu m = new Menu();
+            m.ml = mul;
+            lsarchivo a = new lsarchivo();
+            try
+            {
+                a.InsertarnuevaLista(mul);
+            } catch (IOException ex)
+            {
+                Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            m.setVisible(true);
+            this.dispose();
+            //falta agregar al archivo para guardarlo
+        } else
+        {
+            JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
+
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void priceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_priceActionPerformed
     {//GEN-HEADEREND:event_priceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_priceActionPerformed
 
-    private void FComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FComboActionPerformed
-    {//GEN-HEADEREND:event_FComboActionPerformed
-        ponerCombox(mul);
-    }//GEN-LAST:event_FComboActionPerformed
+    private void KeyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_KeyActionPerformed
+    {//GEN-HEADEREND:event_KeyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KeyActionPerformed
+
+    private void NombreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NombreActionPerformed
+    {//GEN-HEADEREND:event_NombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreActionPerformed
+
+    private void ExistenciaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ExistenciaActionPerformed
+    {//GEN-HEADEREND:event_ExistenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExistenciaActionPerformed
 
     public void ponerCombox(ML m)
     {
@@ -349,12 +400,6 @@ public class Producto extends javax.swing.JFrame
             }
         }
     }
-    private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
-    {//GEN-HEADEREND:event_CComboActionPerformed
-
-        llenaultimo(mul);
-    }//GEN-LAST:event_CComboActionPerformed
-
     public void llenaultimo(ML ml)
     {
 
@@ -414,42 +459,6 @@ public class Producto extends javax.swing.JFrame
         }
     }
 
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        if (Key.getText().length() > 0 && Nombre.getText().length() > 0 && price.getText().length() > 0 && Existencia.getText().length() > 0) {
-            //asignamos valores
-
-            Models.Productos p = new Productos(Key.getText(), Nombre.getText(), Double.parseDouble(price.getText()), Integer.parseInt(Existencia.getText()));
-            //hacemos nodo 
-            NodoLista nls = new NodoLista(Key.getText(), p);
-            //armamos etqs
-            String[] etqs = new String[4];
-            etqs[0] = FCombo.getSelectedItem().toString();
-            etqs[1] = CCombo.getSelectedItem().toString();
-            etqs[2] = SCombo.getSelectedItem().toString();
-            etqs[3] = Key.getText();
-            //insertamos multilista
-            mul.inserta(etqs, 0, nls, mul.getR());
-            Menu m = new Menu();
-            m.ml = mul;
-            lsarchivo a = new lsarchivo();
-            try {
-                a.InsertarnuevaLista(mul);
-            } catch (IOException ex) {
-                Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            m.setVisible(true);
-            this.dispose();
-            //falta agregar al archivo para guardarlo
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
-
-        }
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
