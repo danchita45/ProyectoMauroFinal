@@ -5,6 +5,7 @@
  */
 package proyecto_2do_parcial;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import static proyecto_2do_parcial.Consulta_F.diccionario;
@@ -29,21 +30,19 @@ public class Consulta_C extends javax.swing.JFrame
         mul = ml;
         NodoLista n = ml.getR();
         NodoLista nr;
+        NodoLista aux;
         ListaDoblementeLigada l = new ListaDoblementeLigada();
-        
-
-        while (n != null) {
-            if (n.getAbajo() != null) {
-                nr = n.getAbajo();
-                while (nr != null) {
-                   l.inserta(nr);
-                   nr = nr.getSig();
-                }
+        FarmaciaCombo.removeAllItems();
+        FarmaciaCombo.addItem("Seleccione una farmacia...");
+        aux = mul.r;
+        if (aux != null) {
+            //aqui se llena el combobox con el primer nivel, osease, farmacias
+            while (aux != null) {
+                FarmaciaCombo.addItem(aux.etiqueta);
+                aux = aux.getSig();
             }
-            n = n.getSig();
-        }   
-            //preguntar si tiene abajo, si si entrar en otra función para recorrer el otro nivel
-        llenaTabla(l);
+            FarmaciaCombo.getSelectedItem();
+        }
     }
 
     public int busDic(String buscado)
@@ -71,6 +70,7 @@ public class Consulta_C extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tCiudad = new javax.swing.JTable();
+        FarmaciaCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,6 +92,15 @@ public class Consulta_C extends javax.swing.JFrame
         ));
         jScrollPane1.setViewportView(tCiudad);
 
+        FarmaciaCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        FarmaciaCombo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                FarmaciaComboActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,37 +108,69 @@ public class Consulta_C extends javax.swing.JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
+                        .addGap(172, 172, 172)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(168, Short.MAX_VALUE))
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addComponent(FarmaciaCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(FarmaciaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void FarmaciaComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FarmaciaComboActionPerformed
+    {//GEN-HEADEREND:event_FarmaciaComboActionPerformed
+        NodoLista n = mul.getR();
+        NodoLista nn ;
+        NodoLista nr;
+        
+        ArrayList<Object> nodos = new ArrayList<>();
+        
+        while (n != null) {
+            if (n.getEtiqueta() == FarmaciaCombo.getSelectedItem()) {
+                if (n.getAbajo() != null) {
+                    nr = n.getAbajo();
+                    while (nr != null) {
+                        nodos.add(nr);
+                        nr = nr.getSig();
+                    }
+                }
+            } 
+                n = n.getSig();
+        }
+        //preguntar si tiene abajo, si si entrar en otra función para recorrer el otro nivel
+      llenaTabla(nodos);
+    }//GEN-LAST:event_FarmaciaComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,27 +234,30 @@ public class Consulta_C extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> FarmaciaCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tCiudad;
     // End of variables declaration//GEN-END:variables
 
-    private void llenaTabla( ListaDoblementeLigada c)
+    private void llenaTabla(ArrayList c)
     {
-        DefaultTableModel dt = new DefaultTableModel(new String[]{"Ciudad", "Estado", "Municipio"}, c.count());
+         DefaultTableModel dt;
+         
+          dt = new DefaultTableModel(new String[]{"Ciudad", "Estado", "Municipio"}, c.size());  
+        
         tCiudad.setModel(dt);
         TableModel modeldata = tCiudad.getModel();
+
         
-        NodoLista r = c.r;
-        for (int j = 0; j < c.count(); j++) {
-            Object FarcFarmacia = r.getObj();
-            
-            Models.Ciudades f = (Models.Ciudades) FarcFarmacia;
+        for (int j = 0; j <c.size(); j++) {
+            var FarcFarmacia =  c.get(j);
+            NodoLista ff = (NodoLista) FarcFarmacia;
+            Models.Ciudades f = (Models.Ciudades)  ff.getObj();
             modeldata.setValueAt(f.getCiudad(), j, 0);
             modeldata.setValueAt(f.getEstado(), j, 1);
             modeldata.setValueAt(f.getMunicipio(), j, 2);
-            r = r.getSig();
         }
     }
 }

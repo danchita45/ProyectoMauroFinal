@@ -2,12 +2,14 @@ package proyecto_2do_parcial;
 
 import java.io.Serializable;
 
-public class ListaDoblementeLigada implements Serializable{
+public class ListaDoblementeLigada implements Serializable
+{
 
     NodoLista<Object> r = null;
     int t = 0;
 
-    public boolean inserta(NodoLista n) {
+    public boolean inserta(NodoLista n)
+    {
 
         if (n != null) {
             if (r == null) {
@@ -41,7 +43,8 @@ public class ListaDoblementeLigada implements Serializable{
         return false;
     }
 
-    public NodoLista eliminar(String etq) {
+    public NodoLista eliminar(String etq)
+    {
 
         if (r == null) {
             return null;
@@ -84,7 +87,8 @@ public class ListaDoblementeLigada implements Serializable{
         }
     }
 
-    public String despConN() {
+    public String despConN()
+    {
         String s = "";
         while (r != null) {
             if (r.getAnt() == null) {
@@ -102,9 +106,8 @@ public class ListaDoblementeLigada implements Serializable{
         return s;
     }
 
-
-
-    public NodoLista buscar(String etq) {
+    public NodoLista buscar(String etq)
+    {
         NodoLista encontrado = null;
         NodoLista aux = r;
         while (aux != null) {
@@ -118,10 +121,8 @@ public class ListaDoblementeLigada implements Serializable{
         return encontrado;
     }
 
-    
-    
-    
-    public String desp(NodoLista r) {
+    public String desp(NodoLista r)
+    {
         String s = "";
         while (r != null) {
             s += r.getEtiqueta();
@@ -130,23 +131,28 @@ public class ListaDoblementeLigada implements Serializable{
         return s;
     }
 
-    public NodoLista getr() {
+    public NodoLista getr()
+    {
         return r;
     }
 
-    public void setr(NodoLista r) {
+    public void setr(NodoLista r)
+    {
         this.r = r;
     }
 
-    public int getT() {
+    public int getT()
+    {
         return t;
     }
 
-    public void setT(int t) {
+    public void setT(int t)
+    {
         this.t = t;
     }
 
-    public void muestras() {
+    public void muestras()
+    {
         String s = null;
         if (r != null) {
             NodoLista aux = r;
@@ -163,7 +169,8 @@ public class ListaDoblementeLigada implements Serializable{
         }
     }
 
-    public void patras(String s, NodoLista lista) {
+    public void patras(String s, NodoLista lista)
+    {
         NodoLista aux = lista;
         if (null != aux) {
             System.out.println("<---");
@@ -173,23 +180,29 @@ public class ListaDoblementeLigada implements Serializable{
         }
     }
 
-    public int count() {
+    public int count()
+    {
         int i = 0;
         if (r != null) {
             NodoLista aux = r;
-            do  {
+            while (aux != null) {
                 i++;
+                if (aux.getSig() == aux.getAnt()) {
+                    
+                    break;
+                }
                 aux = aux.sig;
-            }while(aux != null);
+            }
             return i;
-        }else{
+        } else {
             return i;
         }
-        
+
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return r.toString();
     }
 

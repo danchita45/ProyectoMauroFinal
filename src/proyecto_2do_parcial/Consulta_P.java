@@ -5,6 +5,7 @@
  */
 package proyecto_2do_parcial;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import static proyecto_2do_parcial.Consulta_S.mul;
@@ -29,9 +30,10 @@ public class Consulta_P extends javax.swing.JFrame
         NodoLista nr;
         NodoLista nrs;
         NodoLista nrsp;
-        NodoLista prueba;
-        ListaDoblementeLigada l = new ListaDoblementeLigada();
 
+        SCombo.removeAllItems();
+        
+        SCombo.addItem("Seleccione Sucursal");
         while (n != null) {
             if (n.getAbajo() != null) {
                 nr = n.getAbajo();
@@ -39,9 +41,9 @@ public class Consulta_P extends javax.swing.JFrame
                     if (nr.getAbajo() != null) {
                         nrs = nr.getAbajo();
                         while (nrs != null) {
+                            SCombo.addItem(nrs.getEtiqueta());
                             if (nrs.getAbajo() != null) {
                                 nrsp = nrs.getAbajo();
-                                l = verNodo(nrsp);
                             }
                             nrs = nrs.getSig();
                         }
@@ -51,8 +53,6 @@ public class Consulta_P extends javax.swing.JFrame
             }
             n = n.getSig();
         }
-        llenaTabla(l);
-
     }
 
     /**
@@ -69,6 +69,7 @@ public class Consulta_P extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tProductos = new javax.swing.JTable();
+        SCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,6 +91,15 @@ public class Consulta_P extends javax.swing.JFrame
         ));
         jScrollPane1.setViewportView(tProductos);
 
+        SCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SCombo.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                SComboActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,37 +107,83 @@ public class Consulta_P extends javax.swing.JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addComponent(jLabel1))
+                        .addGap(78, 78, 78)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                        .addGap(202, 202, 202)
+                        .addComponent(jLabel1)))
+                .addContainerGap(114, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(SCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(164, 164, 164))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(SCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SComboActionPerformed
+    {//GEN-HEADEREND:event_SComboActionPerformed
+        NodoLista n = mul.getR();
+        NodoLista nr;
+        NodoLista nrs;
+        NodoLista nrsp;
+
+        ArrayList<Object> l = new ArrayList<>();
+        
+        
+        while (n != null) {
+            if (n.getAbajo() != null) {
+                nr = n.getAbajo();
+                while (nr != null) {
+                    if (nr.getAbajo() != null) {
+                        nrs = nr.getAbajo();
+                        while (nrs != null) {
+                            if (nrs.getEtiqueta() == SCombo.getSelectedItem()) {
+                                if (nrs.getAbajo() != null) {
+                                    nrsp = nrs.getAbajo();
+                                    while (nrsp != null) {
+                                           l.add(nrsp);
+                                           nrsp = nrsp.getSig();
+                                    }
+                                }
+                            }
+                            nrs = nrs.getSig();
+                        }
+                    }
+                    nr = nr.getSig();
+                }
+            }
+            n = n.getSig();
+        }
+        llenaTabla(l);
+    }//GEN-LAST:event_SComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,39 +239,31 @@ public class Consulta_P extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> SCombo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tProductos;
     // End of variables declaration//GEN-END:variables
 
-    private void llenaTabla(ListaDoblementeLigada c)
+    private void llenaTabla(ArrayList c)
     {
 
-        NodoLista r = c.r;
-
-        int count = 0;
-        do {
-            if (r.getSig() != null && (r.getSig() == r.getAnt())) {
-                count++;
-                break;
-            }
-            count++;
-            r = r.getSig();
-        }while (r != null);
-
-        DefaultTableModel dt = new DefaultTableModel(new String[]{"Clave", "Precio", "Existencia", "Nombre"}, count);
+      
+        DefaultTableModel dt = new DefaultTableModel(new String[]{"Clave", "Precio", "Existencia", "Nombre"}, c.size());
         tProductos.setModel(dt);
         TableModel modeldata = tProductos.getModel();
-        r = c.r;
-        for (int j = 0; j < count; j++) {
-            Object FarcFarmacia = r.getObj();
-            Models.Productos f = (Models.Productos) FarcFarmacia;
+        
+        for (int j = 0; j < c.size(); j++) {
+            Object FarcFarmacia = c.get(j);
+            NodoLista ff = (NodoLista) FarcFarmacia;
+            
+            Models.Productos f = (Models.Productos) ff.getObj();
             modeldata.setValueAt(f.getClave(), j, 0);
             modeldata.setValueAt(Double.toString(f.getPrecio()), j, 1);
             modeldata.setValueAt(Integer.toString(f.getExistencia()), j, 2);
             modeldata.setValueAt(f.getNombre(), j, 3);
-            r = r.getSig();
+           
         }
     }
 

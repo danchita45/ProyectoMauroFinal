@@ -47,10 +47,6 @@ public class Producto extends javax.swing.JFrame
             FCombo.getSelectedItem();
         }
         ponerCombox(p);
-        if (FCombo.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "No hay farmacias, imposible agregar, agregue una farmacia");
-            jButton1.setEnabled(false);
-        }
     }
 
     /**
@@ -319,10 +315,6 @@ public class Producto extends javax.swing.JFrame
                 }
             }
         }
-        if (CCombo.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "No hay Ciudades, imposible agregar, agregue una Ciudad");
-            jButton1.setEnabled(false);
-        }
         if (auxc != null) {
             while (auxc.getAnt() != null) {
 
@@ -355,11 +347,6 @@ public class Producto extends javax.swing.JFrame
                     AuxGen = AuxGen.getSig();
                 }
             }
-        }
-
-        if (SCombo.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(this, "No hay Sucursales, imposible agregar, agregue una Sucursal");
-            jButton1.setEnabled(false);
         }
     }
     private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
