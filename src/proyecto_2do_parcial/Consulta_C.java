@@ -292,7 +292,7 @@ public class Consulta_C extends javax.swing.JFrame
 
         for (int j = 0; j < c.size(); j++)
         {
-            var FarcFarmacia = c.get(j);
+            Object FarcFarmacia = c.get(j);
             NodoLista ff = (NodoLista) FarcFarmacia;
             Models.Ciudades f = (Models.Ciudades) ff.getObj();
             modeldata.setValueAt(f.getCiudad(), j, 0);

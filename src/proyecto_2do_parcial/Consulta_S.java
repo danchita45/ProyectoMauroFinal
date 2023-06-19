@@ -274,7 +274,7 @@ public class Consulta_S extends javax.swing.JFrame
         for (int j = 0; j < c.size(); j++)
         {
 
-            var ff = c.get(j);
+            Object ff = c.get(j);
             NodoLista FarcFarmacia = (NodoLista) ff;
             Models.Sucursales f = (Models.Sucursales) FarcFarmacia.getObj();
             modeldata.setValueAt(f.getNombre(), j, 0);
