@@ -7,7 +7,6 @@ import java.io.Serializable;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Angeles
@@ -17,13 +16,12 @@ public class NodoLista<T> implements Serializable
 
     String etiqueta;
     T obj;
-    NodoLista sig, ant, abajo;
+    NodoLista sig, ant, abajo,arriba;
 
     public NodoLista()
     {
     }
-    
-    
+
     public NodoLista(String etiqueta, T obj)
     {
         this.etiqueta = etiqueta;
@@ -31,6 +29,17 @@ public class NodoLista<T> implements Serializable
         this.sig = null;
         this.ant = null;
         this.abajo = null;
+        this.arriba = null;
+    }
+
+    public NodoLista getArriba()
+    {
+        return arriba;
+    }
+
+    public void setArriba(NodoLista arriba)
+    {
+        this.arriba = arriba;
     }
 
     public NodoLista getAbajo()

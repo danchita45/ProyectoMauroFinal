@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static proyecto_2do_parcial.Ciudad.mlgeneral;
 import static proyecto_2do_parcial.Ciudad.r;
+//import cjb.ci.Validaciones;
 
 /**
  *
@@ -41,15 +42,18 @@ public class Sucursal extends javax.swing.JFrame
 
         r = mul.r;
 
-        if (aux != null) {
+        if (aux != null)
+        {
             //aqui se llena el combobox con el primer nivel, osease, farmacias
-            while (aux != null) {
+            while (aux != null)
+            {
                 FCombo.addItem(aux.etiqueta);
                 aux = aux.getSig();
             }
             FCombo.getSelectedItem();
         }
-        if (FCombo.getSelectedItem() == null) {
+        if (FCombo.getSelectedItem() == null)
+        {
             JOptionPane.showMessageDialog(this, "No hay farmacias, imposible agregar, agregue una farmacia");
             GuardarSuc.setEnabled(false);
         }
@@ -79,8 +83,12 @@ public class Sucursal extends javax.swing.JFrame
         jLabel6 = new javax.swing.JLabel();
         CCombo = new javax.swing.JComboBox<>();
         GuardarSuc = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Alta de Sucursales");
@@ -93,6 +101,13 @@ public class Sucursal extends javax.swing.JFrame
                 PostActionPerformed(evt);
             }
         });
+        Post.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                PostKeyTyped(evt);
+            }
+        });
 
         SucKey.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         SucKey.addActionListener(new java.awt.event.ActionListener()
@@ -100,6 +115,13 @@ public class Sucursal extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 SucKeyActionPerformed(evt);
+            }
+        });
+        SucKey.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                SucKeyKeyTyped(evt);
             }
         });
 
@@ -112,6 +134,13 @@ public class Sucursal extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 NombreActionPerformed(evt);
+            }
+        });
+        Nombre.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                NombreKeyTyped(evt);
             }
         });
 
@@ -154,6 +183,16 @@ public class Sucursal extends javax.swing.JFrame
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Casa.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,13 +218,17 @@ public class Sucursal extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(GuardarSuc, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SucKey, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,7 +271,7 @@ public class Sucursal extends javax.swing.JFrame
 
     private void SucKeyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SucKeyActionPerformed
     {//GEN-HEADEREND:event_SucKeyActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_SucKeyActionPerformed
 
     private void NombreActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NombreActionPerformed
@@ -244,9 +287,10 @@ public class Sucursal extends javax.swing.JFrame
     private void GuardarSucActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_GuardarSucActionPerformed
     {//GEN-HEADEREND:event_GuardarSucActionPerformed
         // en vez de ser una nueva multilista, sacamos todos los datos de el archivo bianrio
-        //así nos traeríamos toda la lista ya armada y de chingadazo
+        //así nos traeríamos toda la lista ya armada y de jalon
 
-        if (SucKey.getText().length() > 0 && Nombre.getText().length() > 0 && Post.getText().length() > 0) {
+        if (SucKey.getText().length() > 0 && Nombre.getText().length() > 0 && Post.getText().length() > 0)
+        {
             //asignamos valores
             Models.Sucursales suc = new Sucursales();
             suc.setClave(SucKey.getText());
@@ -262,13 +306,16 @@ public class Sucursal extends javax.swing.JFrame
             //insertamos multilista
             mul.r = mul.inserta(etqs, 0, nls, mul.getR());
             lsarchivo a = new lsarchivo();
-            try {
+            try
+            {
                 a.InsertarnuevaLista(mul);
                 //falta agregar al archivo para guardarlo
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(Sucursal.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
 
         }
@@ -282,23 +329,29 @@ public class Sucursal extends javax.swing.JFrame
         CCombo.removeAllItems();
         NodoLista aux;
         aux = mul.getR();
-        if (FCombo.getSelectedItem() != null) {
-            while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+        if (FCombo.getSelectedItem() != null)
+        {
+            while (aux.getEtiqueta() != FCombo.getSelectedItem())
+            {
                 aux = aux.getSig();
             }
         }
 
-        if (aux != null) {
-            if (aux.getAbajo() != null) {
+        if (aux != null)
+        {
+            if (aux.getAbajo() != null)
+            {
                 aux = aux.getAbajo();
-                while (aux != null) {
+                while (aux != null)
+                {
                     CCombo.addItem(aux.etiqueta);
                     aux = aux.getSig();
                 }
             }
         }
 
-        if (CCombo.getSelectedItem() == null) {
+        if (CCombo.getSelectedItem() == null)
+        {
             JOptionPane.showMessageDialog(this, "No hay Ciudades, imposible agregar, agregue una Ciudad");
             GuardarSuc.setEnabled(false);
             this.dispose();
@@ -311,6 +364,27 @@ public class Sucursal extends javax.swing.JFrame
 
     }//GEN-LAST:event_CComboActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void SucKeyKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_SucKeyKeyTyped
+    {//GEN-HEADEREND:event_SucKeyKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, SucKey.getText());
+    }//GEN-LAST:event_SucKeyKeyTyped
+
+    private void NombreKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_NombreKeyTyped
+    {//GEN-HEADEREND:event_NombreKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 15, Nombre.getText());
+    }//GEN-LAST:event_NombreKeyTyped
+
+    private void PostKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_PostKeyTyped
+    {//GEN-HEADEREND:event_PostKeyTyped
+        //Validaciones.validaEntero(evt, 5, Post.getText());
+    }//GEN-LAST:event_PostKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -321,20 +395,27 @@ public class Sucursal extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Sucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Sucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Sucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Sucursal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -357,6 +438,7 @@ public class Sucursal extends javax.swing.JFrame
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField Post;
     private javax.swing.JTextField SucKey;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

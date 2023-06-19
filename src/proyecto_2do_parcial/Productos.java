@@ -11,6 +11,7 @@ package proyecto_2do_parcial;
  */
 public class Productos
 {
+
     String Clave, nombre;
     double precio;
     int existencia;
@@ -72,5 +73,5 @@ public class Productos
     {
         return "Productos{" + "Clave=" + Clave + ", nombre=" + nombre + ", precio=" + precio + ", existencia=" + existencia + '}';
     }
-    
+
 }

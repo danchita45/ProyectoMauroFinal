@@ -45,9 +45,11 @@ public class Baja_Producto extends javax.swing.JFrame
         aux = mul.r;
 
         FCombo.addItem("Seleccione Farmacia");
-        if (aux != null) {
+        if (aux != null)
+        {
             //aqui se llena el combobox con el primer nivel, osease, farmacias
-            while (aux != null) {
+            while (aux != null)
+            {
                 FCombo.addItem(aux.etiqueta);
                 aux = aux.getSig();
             }
@@ -76,8 +78,12 @@ public class Baja_Producto extends javax.swing.JFrame
         SCombo = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Baja de Productos");
@@ -149,6 +155,16 @@ public class Baja_Producto extends javax.swing.JFrame
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Casa.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -169,20 +185,24 @@ public class Baja_Producto extends javax.swing.JFrame
                     .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(194, 194, 194))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(223, 223, 223)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(77, 77, 77))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -191,7 +211,7 @@ public class Baja_Producto extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(CCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -208,15 +228,11 @@ public class Baja_Producto extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 91, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 51, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -232,7 +248,8 @@ public class Baja_Producto extends javax.swing.JFrame
     {//GEN-HEADEREND:event_FComboActionPerformed
         CCombo.removeAllItems();
 
-        if (FCombo.getSelectedItem() != "Seleccione Farmacia") {
+        if (FCombo.getSelectedItem() != "Seleccione Farmacia")
+        {
             CCombo.setVisible(true);
             CCombo.addItem("Seleccione Ciudad");
             NodoLista aux;
@@ -240,16 +257,21 @@ public class Baja_Producto extends javax.swing.JFrame
             int bnd = 0;
 
             aux = muls.getR();
-            if (FCombo.getSelectedItem() != null) {
-                while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+            if (FCombo.getSelectedItem() != null)
+            {
+                while (aux.getEtiqueta() != FCombo.getSelectedItem())
+                {
                     aux = aux.getSig();
 
                 }
             }
-            if (aux != null) {
-                if (aux.getAbajo() != null) {
+            if (aux != null)
+            {
+                if (aux.getAbajo() != null)
+                {
                     aux = aux.getAbajo();
-                    while (aux != null) {
+                    while (aux != null)
+                    {
                         CCombo.addItem(aux.etiqueta);
                         auxc = aux;
                         aux = aux.getSig();
@@ -257,30 +279,39 @@ public class Baja_Producto extends javax.swing.JFrame
                     }
                 }
             }
-            if (auxc != null) {
-                while (auxc.getAnt() != null) {
+            if (auxc != null)
+            {
+                while (auxc.getAnt() != null)
+                {
 
                     auxc = auxc.getAnt();
                 }
             }
 
-            if (CCombo.getSelectedItem() != null) {
+            if (CCombo.getSelectedItem() != null)
+            {
 
-                while (bnd != 1) {
-                    if (auxc.getEtiqueta() == CCombo.getSelectedItem()) {
+                while (bnd != 1)
+                {
+                    if (auxc.getEtiqueta() == CCombo.getSelectedItem())
+                    {
                         bnd = 1;
                         AuxGen = auxc;
-                    } else {
-                        if (auxc.getSig() != null) {
+                    } else
+                    {
+                        if (auxc.getSig() != null)
+                        {
                             auxc = auxc.getSig();
-                        } else {
+                        } else
+                        {
                             break;
                         }
                     }
                 }
             }
 
-        } else {
+        } else
+        {
             CCombo.setVisible(false);
             CCombo.removeAllItems();
             SCombo.setVisible(false);
@@ -293,7 +324,8 @@ public class Baja_Producto extends javax.swing.JFrame
     private void CComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CComboActionPerformed
     {//GEN-HEADEREND:event_CComboActionPerformed
         SCombo.removeAllItems();
-        if (CCombo.getSelectedItem() != "Seleccione Ciudad") {
+        if (CCombo.getSelectedItem() != "Seleccione Ciudad")
+        {
             SCombo.setVisible(true);
             SCombo.addItem("Seleccione Sucursal");
             NodoLista aux;
@@ -302,34 +334,43 @@ public class Baja_Producto extends javax.swing.JFrame
 
             aux = muls.getR();
             String s = (String) CCombo.getSelectedItem();
-            if (s != "Seleccione Farmacia" && s != null) {
-                while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
-                    if (aux == null) {
+            if (s != "Seleccione Farmacia" && s != null)
+            {
+                while (aux.getEtiqueta() != FCombo.getSelectedItem())
+                {
+                    if (aux == null)
+                    {
                         break;
                     }
                     aux = aux.getSig();
                 }
             }
-            if (aux.getAbajo() != null) {
+            if (aux.getAbajo() != null)
+            {
                 aux = aux.getAbajo();
-                while (aux.getEtiqueta() != CCombo.getSelectedItem()) {
-                    if (aux.getSig() == null) {
+                while (aux.getEtiqueta() != CCombo.getSelectedItem())
+                {
+                    if (aux.getSig() == null)
+                    {
                         break;
                     }
                     aux = aux.getSig();
                 }
             }
 
-            if (aux.getAbajo() != null) {
+            if (aux.getAbajo() != null)
+            {
                 aux = aux.getAbajo();
-                while (aux != null) {
+                while (aux != null)
+                {
                     SCombo.addItem(aux.getEtiqueta());
                     AuxGen = aux;
                     aux = aux.getSig();
 
                 }
             }
-        } else {
+        } else
+        {
             SCombo.setVisible(false);
             SCombo.removeAllItems();
             ProductDelete.setEnabled(false);
@@ -340,19 +381,24 @@ public class Baja_Producto extends javax.swing.JFrame
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
     {//GEN-HEADEREND:event_jButton1ActionPerformed
 
-        if (ProductDelete.getText().equals("")) {
+        if (ProductDelete.getText().equals(""))
+        {
             JOptionPane.showMessageDialog(this, "ingrese producto a eliminar");
 
-        } else {
+        } else
+        {
             NodoLista productos = AuxGen;
             NodoLista producto = AuxGen;
-            while (productos != null) {
+            while (productos != null)
+            {
                 producto = productos;
                 productos = productos.getAnt();
             }
 
-            while (producto.getEtiqueta() != SCombo.getSelectedItem()) {
-                if (producto == null) {
+            while (producto.getEtiqueta() != SCombo.getSelectedItem())
+            {
+                if (producto == null)
+                {
                     break;
                 }
                 producto = producto.getSig();
@@ -370,28 +416,35 @@ public class Baja_Producto extends javax.swing.JFrame
             String et = producto.getEtiqueta();
             String tex = ProductDelete.getText();
 
-            while (producto != null) {
-                if (et.equals(tex)) {
+            while (producto != null)
+            {
+                if (et.equals(tex))
+                {
                     muls.borrar(muls.r, s, 0, n);
                     bandera = 1;
                 }
 
                 producto = producto.getSig();
-                if (producto == null) {
+                if (producto == null)
+                {
                     break;
                 }
                 et = producto.getEtiqueta();
             }
-            if (bandera == 0) {
+            if (bandera == 0)
+            {
                 JOptionPane.showMessageDialog(this, "Producto no encontrado");
                 ProductDelete.setFocusable(true);
                 ProductDelete.setText("");
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "Producto eliminado");
                 lsarchivo nuevo = new lsarchivo();
-                try {
+                try
+                {
                     nuevo.InsertarnuevaLista(muls);
-                } catch (IOException ex) {
+                } catch (IOException ex)
+                {
                     Logger.getLogger(Baja_Producto.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 Menu nmenu = new Menu();
@@ -407,9 +460,11 @@ public class Baja_Producto extends javax.swing.JFrame
     private void SComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SComboActionPerformed
     {//GEN-HEADEREND:event_SComboActionPerformed
 
-        if (SCombo.getSelectedItem() != "Seleccione Sucursal") {
+        if (SCombo.getSelectedItem() != "Seleccione Sucursal")
+        {
             ProductDelete.setEnabled(true);
-        } else {
+        } else
+        {
             ProductDelete.setEnabled(false);
         }
     }//GEN-LAST:event_SComboActionPerformed
@@ -424,6 +479,12 @@ public class Baja_Producto extends javax.swing.JFrame
         ProductDelete.setEnabled(true);
     }//GEN-LAST:event_ProductDeleteKeyPressed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -434,20 +495,27 @@ public class Baja_Producto extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Baja_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Baja_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Baja_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Baja_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -471,6 +539,7 @@ public class Baja_Producto extends javax.swing.JFrame
     private javax.swing.JTextField ProductDelete;
     private javax.swing.JComboBox<String> SCombo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

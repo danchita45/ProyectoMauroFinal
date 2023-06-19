@@ -11,6 +11,7 @@ package proyecto_2do_parcial;
  */
 public class Ciudades
 {
+
     String Estado, Municipio, Ciudad;
 
     public Ciudades()
@@ -59,5 +60,5 @@ public class Ciudades
     {
         return "Ciudades{" + "Estado=" + Estado + ", Municipio=" + Municipio + ", Ciudad=" + Ciudad + '}';
     }
-    
+
 }

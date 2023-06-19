@@ -8,6 +8,7 @@ package proyecto_2do_parcial;
 import Models.Productos;
 import Models.Sucursales;
 import Models.lsarchivo;
+//import cjb.ci.Validaciones;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,9 +39,11 @@ public class Producto extends javax.swing.JFrame
         NodoLista aux;
         aux = mul.r;
 
-        if (aux != null) {
+        if (aux != null)
+        {
             //aqui se llena el combobox con el primer nivel, osease, farmacias
-            while (aux != null) {
+            while (aux != null)
+            {
                 FCombo.addItem(aux.etiqueta);
                 aux = aux.getSig();
             }
@@ -76,8 +79,12 @@ public class Producto extends javax.swing.JFrame
         CCombo = new javax.swing.JComboBox<>();
         SCombo = new javax.swing.JComboBox<>();
         FCombo = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Alta de Productos");
@@ -96,6 +103,13 @@ public class Producto extends javax.swing.JFrame
                 ExistenciaActionPerformed(evt);
             }
         });
+        Existencia.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                ExistenciaKeyTyped(evt);
+            }
+        });
 
         Nombre.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         Nombre.addActionListener(new java.awt.event.ActionListener()
@@ -103,6 +117,13 @@ public class Producto extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 NombreActionPerformed(evt);
+            }
+        });
+        Nombre.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                NombreKeyTyped(evt);
             }
         });
 
@@ -117,6 +138,13 @@ public class Producto extends javax.swing.JFrame
                 KeyActionPerformed(evt);
             }
         });
+        Key.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                KeyKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel5.setText("Ingresa el Precio");
@@ -127,6 +155,13 @@ public class Producto extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 priceActionPerformed(evt);
+            }
+        });
+        price.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                priceKeyTyped(evt);
             }
         });
 
@@ -168,55 +203,69 @@ public class Producto extends javax.swing.JFrame
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Casa.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(195, 195, 195)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Key, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Existencia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(SCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(CCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(FCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(150, Short.MAX_VALUE))
+                            .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Key, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Existencia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(SCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(CCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(FCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(191, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(269, 269, 269))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Nombre)
@@ -245,26 +294,20 @@ public class Producto extends javax.swing.JFrame
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(SCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(80, 80, 80)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(129, 129, 129))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -341,6 +384,32 @@ public class Producto extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_ExistenciaActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+       new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void NombreKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_NombreKeyTyped
+    {//GEN-HEADEREND:event_NombreKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, Nombre.getText());
+    }//GEN-LAST:event_NombreKeyTyped
+
+    private void KeyKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_KeyKeyTyped
+    {//GEN-HEADEREND:event_KeyKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, Key.getText());
+    }//GEN-LAST:event_KeyKeyTyped
+
+    private void ExistenciaKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_ExistenciaKeyTyped
+    {//GEN-HEADEREND:event_ExistenciaKeyTyped
+        //Validaciones.validaEntero(evt, 5, Existencia.getText());
+    }//GEN-LAST:event_ExistenciaKeyTyped
+
+    private void priceKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_priceKeyTyped
+    {//GEN-HEADEREND:event_priceKeyTyped
+        //Validaciones.validaFlotantes(evt, 5, price.getText());
+    }//GEN-LAST:event_priceKeyTyped
+
     public void ponerCombox(ML m)
     {
         CCombo.removeAllItems();
@@ -349,16 +418,21 @@ public class Producto extends javax.swing.JFrame
         int bnd = 0;
 
         aux = m.getR();
-        if (FCombo.getSelectedItem() != null) {
-            while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+        if (FCombo.getSelectedItem() != null)
+        {
+            while (aux.getEtiqueta() != FCombo.getSelectedItem())
+            {
                 aux = aux.getSig();
 
             }
         }
-        if (aux != null) {
-            if (aux.getAbajo() != null) {
+        if (aux != null)
+        {
+            if (aux.getAbajo() != null)
+            {
                 aux = aux.getAbajo();
-                while (aux != null) {
+                while (aux != null)
+                {
                     CCombo.addItem(aux.etiqueta);
                     auxc = aux;
                     aux = aux.getSig();
@@ -366,23 +440,31 @@ public class Producto extends javax.swing.JFrame
                 }
             }
         }
-        if (auxc != null) {
-            while (auxc.getAnt() != null) {
+        if (auxc != null)
+        {
+            while (auxc.getAnt() != null)
+            {
 
                 auxc = auxc.getAnt();
             }
         }
 
-        if (CCombo.getSelectedItem() != null) {
+        if (CCombo.getSelectedItem() != null)
+        {
 
-            while (bnd != 1) {
-                if (auxc.getEtiqueta() == CCombo.getSelectedItem()) {
+            while (bnd != 1)
+            {
+                if (auxc.getEtiqueta() == CCombo.getSelectedItem())
+                {
                     bnd = 1;
                     AuxGen = auxc;
-                } else {
-                    if (auxc.getSig() != null) {
+                } else
+                {
+                    if (auxc.getSig() != null)
+                    {
                         auxc = auxc.getSig();
-                    } else {
+                    } else
+                    {
                         break;
                     }
                 }
@@ -390,16 +472,20 @@ public class Producto extends javax.swing.JFrame
         }
 
         SCombo.removeAllItems();
-        if (AuxGen != null) {
-            if (AuxGen.getAbajo() != null) {
+        if (AuxGen != null)
+        {
+            if (AuxGen.getAbajo() != null)
+            {
                 AuxGen = AuxGen.getAbajo();
-                while (AuxGen != null) {
+                while (AuxGen != null)
+                {
                     SCombo.addItem(AuxGen.etiqueta);
                     AuxGen = AuxGen.getSig();
                 }
             }
         }
     }
+
     public void llenaultimo(ML ml)
     {
 
@@ -408,16 +494,21 @@ public class Producto extends javax.swing.JFrame
         int bnd = 0;
 
         aux = ml.getR();
-        if (FCombo.getSelectedItem() != null) {
-            while (aux.getEtiqueta() != FCombo.getSelectedItem()) {
+        if (FCombo.getSelectedItem() != null)
+        {
+            while (aux.getEtiqueta() != FCombo.getSelectedItem())
+            {
                 aux = aux.getSig();
 
             }
         }
-        if (aux != null) {
-            if (aux.getAbajo() != null) {
+        if (aux != null)
+        {
+            if (aux.getAbajo() != null)
+            {
                 aux = aux.getAbajo();
-                while (aux != null) {
+                while (aux != null)
+                {
                     auxc = aux;
                     aux = aux.getSig();
 
@@ -425,22 +516,30 @@ public class Producto extends javax.swing.JFrame
             }
         }
 
-        if (auxc != null) {
-            while (auxc.getAnt() != null) {
+        if (auxc != null)
+        {
+            while (auxc.getAnt() != null)
+            {
                 auxc = auxc.getAnt();
             }
         }
 
-        if (CCombo.getSelectedItem() != null) {
+        if (CCombo.getSelectedItem() != null)
+        {
 
-            while (bnd != 1) {
-                if (auxc.getEtiqueta() == CCombo.getSelectedItem()) {
+            while (bnd != 1)
+            {
+                if (auxc.getEtiqueta() == CCombo.getSelectedItem())
+                {
                     bnd = 1;
                     AuxGen = auxc;
-                } else {
-                    if (auxc.getSig() != null) {
+                } else
+                {
+                    if (auxc.getSig() != null)
+                    {
                         auxc = auxc.getSig();
-                    } else {
+                    } else
+                    {
                         break;
                     }
                 }
@@ -448,17 +547,19 @@ public class Producto extends javax.swing.JFrame
         }
 
         SCombo.removeAllItems();
-        if (AuxGen != null) {
-            if (AuxGen.getAbajo() != null) {
+        if (AuxGen != null)
+        {
+            if (AuxGen.getAbajo() != null)
+            {
                 AuxGen = AuxGen.getAbajo();
-                while (AuxGen != null) {
+                while (AuxGen != null)
+                {
                     SCombo.addItem(AuxGen.etiqueta);
                     AuxGen = AuxGen.getSig();
                 }
             }
         }
     }
-
 
     /**
      * @param args the command line arguments
@@ -470,20 +571,27 @@ public class Producto extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -507,6 +615,7 @@ public class Producto extends javax.swing.JFrame
     private javax.swing.JTextField Nombre;
     private javax.swing.JComboBox<String> SCombo;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

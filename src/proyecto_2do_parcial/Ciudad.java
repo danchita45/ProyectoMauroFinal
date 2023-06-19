@@ -8,6 +8,7 @@ package proyecto_2do_parcial;
 import Models.Ciudades;
 import Models.Farmacias;
 import Models.lsarchivo;
+//import cjb.ci.Validaciones;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,19 +38,22 @@ public class Ciudad extends javax.swing.JFrame
         aux = mul.r;
 
         mlgeneral = mul;
-        if (aux != null) {
+        if (aux != null)
+        {
             //aqui se llena el combobox con el primer nivel, osease, farmacias
-            while (aux != null) {
+            while (aux != null)
+            {
                 FarmaciaCombo.addItem(aux.etiqueta);
                 aux = aux.getSig();
             }
             FarmaciaCombo.getSelectedItem();
         }
-        if(FarmaciaCombo.getSelectedItem()==null){
+        if (FarmaciaCombo.getSelectedItem() == null)
+        {
             JOptionPane.showMessageDialog(this, "No hay farmacias, imposible agregar, agregue una farmacia");
             GuardarCiudad.setEnabled(false);
         }
-        
+
     }
 
     /**
@@ -73,8 +77,12 @@ public class Ciudad extends javax.swing.JFrame
         GuardarCiudad = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         FarmaciaCombo = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Alta de Ciudades");
@@ -96,6 +104,13 @@ public class Ciudad extends javax.swing.JFrame
                 EstadotxtActionPerformed(evt);
             }
         });
+        Estadotxt.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                EstadotxtKeyTyped(evt);
+            }
+        });
 
         municipiotxt.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         municipiotxt.addActionListener(new java.awt.event.ActionListener()
@@ -105,6 +120,13 @@ public class Ciudad extends javax.swing.JFrame
                 municipiotxtActionPerformed(evt);
             }
         });
+        municipiotxt.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                municipiotxtKeyTyped(evt);
+            }
+        });
 
         ciudadtxt.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         ciudadtxt.addActionListener(new java.awt.event.ActionListener()
@@ -112,6 +134,13 @@ public class Ciudad extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 ciudadtxtActionPerformed(evt);
+            }
+        });
+        ciudadtxt.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                ciudadtxtKeyTyped(evt);
             }
         });
 
@@ -136,15 +165,22 @@ public class Ciudad extends javax.swing.JFrame
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Casa.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(190, 190, 190)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -162,12 +198,20 @@ public class Ciudad extends javax.swing.JFrame
                         .addGap(323, 323, 323)
                         .addComponent(GuardarCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(282, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(274, 274, 274)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Estadotxt)
@@ -193,16 +237,11 @@ public class Ciudad extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 42, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -229,7 +268,8 @@ public class Ciudad extends javax.swing.JFrame
         // en vez de ser una nueva multilista, sacamos todos los datos de el archivo bianrio
         //así nos traeríamos toda la lista ya armada y de chingadazo
 
-        if (municipiotxt.getText().length() > 0 && Estadotxt.getText().length() > 0 && ciudadtxt.getText().length() > 0) {
+        if (municipiotxt.getText().length() > 0 && Estadotxt.getText().length() > 0 && ciudadtxt.getText().length() > 0)
+        {
             Models.Ciudades NCiudad = new Ciudades();
             NCiudad.setCiudad(ciudadtxt.getText());
             NCiudad.setMunicipio(municipiotxt.getText());
@@ -242,13 +282,16 @@ public class Ciudad extends javax.swing.JFrame
 
             mlgeneral.inserta(etqs, 0, nls, r);
             lsarchivo a = new lsarchivo();
-            try {
+            try
+            {
                 a.InsertarnuevaLista(mlgeneral);
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(Ciudad.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
 
         }
@@ -265,6 +308,27 @@ public class Ciudad extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_FarmaciaComboActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void EstadotxtKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_EstadotxtKeyTyped
+    {//GEN-HEADEREND:event_EstadotxtKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, Estadotxt.getText());
+    }//GEN-LAST:event_EstadotxtKeyTyped
+
+    private void municipiotxtKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_municipiotxtKeyTyped
+    {//GEN-HEADEREND:event_municipiotxtKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, municipiotxt.getText());
+    }//GEN-LAST:event_municipiotxtKeyTyped
+
+    private void ciudadtxtKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_ciudadtxtKeyTyped
+    {//GEN-HEADEREND:event_ciudadtxtKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, ciudadtxt.getText());
+    }//GEN-LAST:event_ciudadtxtKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -275,20 +339,27 @@ public class Ciudad extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Ciudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Ciudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Ciudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Ciudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -309,6 +380,7 @@ public class Ciudad extends javax.swing.JFrame
     private javax.swing.JComboBox<String> FarmaciaCombo;
     private javax.swing.JButton GuardarCiudad;
     private javax.swing.JTextField ciudadtxt;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

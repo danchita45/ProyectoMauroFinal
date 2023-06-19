@@ -5,7 +5,6 @@ package proyecto_2do_parcial;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Angeles
@@ -13,7 +12,7 @@ package proyecto_2do_parcial;
 public class multilista
 {
 
-   public static NodoLista r = null;
+    public static NodoLista r = null;
 
     public NodoLista getR()
     {
@@ -25,7 +24,7 @@ public class multilista
         this.r = r;
     }
 
-    public  NodoLista inserta(NodoLista r, NodoLista n, String[] s, int nivel)
+    public NodoLista inserta(NodoLista r, NodoLista n, String[] s, int nivel)
     {
 
         if (nivel == s.length)
@@ -36,14 +35,14 @@ public class multilista
             return l.getr();
         } else
         {
-            
+
             ListaDoblementeLigada li = new ListaDoblementeLigada();
 
             li.setr(r);
             NodoLista aux = li.buscar(s[nivel]);
             if (aux == null)
             {
-                aux=r;
+                aux = r;
                 aux.setAbajo(inserta(aux, n, s, nivel + 1));
             }
             return r;

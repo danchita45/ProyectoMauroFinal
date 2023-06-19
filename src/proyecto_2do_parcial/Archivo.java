@@ -24,34 +24,43 @@ import javax.swing.JOptionPane;
  */
 public class Archivo
 {
-        String nombre;
 
-    public Archivo() {
+    String nombre;
+
+    public Archivo()
+    {
     }
 
-    public Archivo(String nombre) {
+    public Archivo(String nombre)
+    {
         this.nombre = nombre;
     }
 
-    public LinkedList<String> obtenerTexto() {
+    public LinkedList<String> obtenerTexto()
+    {
         LinkedList<String> lineas = null;
-        try {
+        try
+        {
             File archivo = obtenerArchivo();
-            if (archivo.exists()) {
+            if (archivo.exists())
+            {
                 lineas = new LinkedList();
                 BufferedReader br = new BufferedReader(new FileReader(archivo));
                 String linea;
-                while ((linea = br.readLine()) != null) {
+                while ((linea = br.readLine()) != null)
+                {
                     System.out.println(linea);
                     lineas.add(linea);
 
                 }
                 br.close();
 
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(null, "El archivo no Existe");
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "se ha producido un error");
 
@@ -59,21 +68,27 @@ public class Archivo
         return lineas;
     }
 
-    private File obtenerArchivo() {
-        try {
+    private File obtenerArchivo()
+    {
+        try
+        {
             URL url = getClass().getClassLoader().getResource("archivos/" + nombre);
             return new File(url.toURI());
-        } catch (URISyntaxException ex) {
+        } catch (URISyntaxException ex)
+        {
             ex.printStackTrace();
             return null;
         }
 
     }
 
-    public boolean registrar(String linea) {
+    public boolean registrar(String linea)
+    {
         File archivo = obtenerArchivo();
-        try {
-            if (archivo.exists()){
+        try
+        {
+            if (archivo.exists())
+            {
                 FileWriter fw = new FileWriter(archivo, true);
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
@@ -82,25 +97,29 @@ public class Archivo
                 pw.close();
 
                 return true;
-            } else {
+            } else
+            {
                 return false;
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             return false;
         }
     }
 
-    public void Limpiar() {
+    public void Limpiar()
+    {
         File arc = obtenerArchivo();
-        try {
+        try
+        {
             FileWriter esc = new FileWriter(arc);
             BufferedWriter bufferEscritor = new BufferedWriter(esc);
             bufferEscritor.close();
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-    
+
 }

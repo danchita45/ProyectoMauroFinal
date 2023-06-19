@@ -11,7 +11,8 @@ package proyecto_2do_parcial;
  */
 public class Sucursales
 {
-    String Clave,Nombre,CodigoPostal;
+
+    String Clave, Nombre, CodigoPostal;
 
     public Sucursales()
     {
@@ -59,6 +60,5 @@ public class Sucursales
     {
         return "Sucursales{" + "Clave=" + Clave + ", Nombre=" + Nombre + ", CodigoPostal=" + CodigoPostal + '}';
     }
-    
-    
+
 }

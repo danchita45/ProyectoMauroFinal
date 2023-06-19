@@ -7,6 +7,7 @@ package proyecto_2do_parcial;
 
 import Models.Farmacias;
 import Models.lsarchivo;
+//import cjb.ci.Validaciones;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ public class Farmacia extends javax.swing.JFrame
 
     public static ML mul = new ML();
     public static NodoLista r = null;
+
     /**
      * Creates new form Farmacia
      */
@@ -51,8 +53,12 @@ public class Farmacia extends javax.swing.JFrame
         jLabel5 = new javax.swing.JLabel();
         FRFC = new javax.swing.JTextField();
         GFarmacia = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Alta de Farmacias");
@@ -64,6 +70,13 @@ public class Farmacia extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 FNombreActionPerformed(evt);
+            }
+        });
+        FNombre.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                FNombreKeyTyped(evt);
             }
         });
 
@@ -81,6 +94,13 @@ public class Farmacia extends javax.swing.JFrame
                 FKeyActionPerformed(evt);
             }
         });
+        FKey.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                FKeyKeyTyped(evt);
+            }
+        });
 
         FSociety.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         FSociety.addActionListener(new java.awt.event.ActionListener()
@@ -88,6 +108,13 @@ public class Farmacia extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
                 FSocietyActionPerformed(evt);
+            }
+        });
+        FSociety.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                FSocietyKeyTyped(evt);
             }
         });
 
@@ -115,15 +142,22 @@ public class Farmacia extends javax.swing.JFrame
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Casa.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,12 +179,20 @@ public class Farmacia extends javax.swing.JFrame
                         .addGap(260, 260, 260)
                         .addComponent(GFarmacia, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(211, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(FNombre)
@@ -209,17 +251,21 @@ public class Farmacia extends javax.swing.JFrame
 
     private void GFarmaciaActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_GFarmaciaActionPerformed
     {//GEN-HEADEREND:event_GFarmaciaActionPerformed
-        try {
-            if (GuardarFarmacia() == 1) {
+        try
+        {
+            if (GuardarFarmacia() == 1)
+            {
                 FNombre.setText("");
                 FKey.setText("");
                 FRFC.setText("");
                 FSociety.setText("");
                 JOptionPane.showMessageDialog(this, "Se ha guardado la informacion");
-            } else {
+            } else
+            {
                 JOptionPane.showMessageDialog(this, "Error Al Guardar");
             }
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(Farmacia.class.getName()).log(Level.SEVERE, null, ex);
         }
         Ciudad c = new Ciudad(mul);
@@ -227,31 +273,53 @@ public class Farmacia extends javax.swing.JFrame
         c.mlgeneral = mul;
         c.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_GFarmaciaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void FNombreKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_FNombreKeyTyped
+    {//GEN-HEADEREND:event_FNombreKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, FNombre.getText());
+    }//GEN-LAST:event_FNombreKeyTyped
+
+    private void FKeyKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_FKeyKeyTyped
+    {//GEN-HEADEREND:event_FKeyKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, FKey.getText());
+    }//GEN-LAST:event_FKeyKeyTyped
+
+    private void FSocietyKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_FSocietyKeyTyped
+    {//GEN-HEADEREND:event_FSocietyKeyTyped
+        //Validaciones.validaAlfanumerico(evt, 20, FSociety.getText());
+    }//GEN-LAST:event_FSocietyKeyTyped
 
     public int GuardarFarmacia() throws IOException
     {
-        if (FNombre.getText().length() > 0 && FKey.getText().length() > 0 && FRFC.getText().length() > 0 && FSociety.getText().length() > 0) {
+        if (FNombre.getText().length() > 0 && FKey.getText().length() > 0 && FRFC.getText().length() > 0 && FSociety.getText().length() > 0)
+        {
             Models.Farmacias farmacia = new Farmacias();
 
             farmacia.setNombre(FNombre.getText());
             farmacia.setClave(FKey.getText());
             farmacia.setRFC(FRFC.getText());
             farmacia.setTDS(FSociety.getText());
-            
+
             NodoLista nls = new NodoLista(FNombre.getText(), farmacia);
             String[] etqs = new String[1];
             etqs[0] = FNombre.getText();
-            
-            
-            r=mul.inserta(etqs, 0, nls, r);
-            mul.r=r;
-            
+
+            r = mul.inserta(etqs, 0, nls, r);
+            mul.r = r;
+
             lsarchivo a = new lsarchivo();
             a.InsertarnuevaLista(mul);
             return 1;
-        } else {
+        } else
+        {
             JOptionPane.showMessageDialog(rootPane, "Error, favor de rellenar todos los campos");
             return 0;
         }
@@ -268,20 +336,27 @@ public class Farmacia extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Farmacia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Farmacia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Farmacia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Farmacia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -302,6 +377,7 @@ public class Farmacia extends javax.swing.JFrame
     private javax.swing.JTextField FRFC;
     private javax.swing.JTextField FSociety;
     private javax.swing.JButton GFarmacia;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

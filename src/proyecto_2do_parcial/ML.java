@@ -12,20 +12,16 @@ public class ML implements Serializable
     public NodoLista inserta(String[] s, int nivel, NodoLista n, NodoLista r)
     {
         ListaDoblementeLigada lista = new ListaDoblementeLigada();
-        if (nivel == s.length - 1)
-        {
+        if (nivel == s.length - 1) {
             lista.setr(r);
             lista.inserta(n);
             return lista.getr();
-        } else
-        {
+        } else {
             lista.setr(r);
             NodoLista nodo = lista.buscar(s[nivel]);
-            if (nodo == null)
-            {
+            if (nodo == null) {
                 System.out.println("Error");
-            } else
-            {
+            } else {
                 nodo.setAbajo(inserta(s, nivel + 1, n, nodo.getAbajo()));
             }
             return r;
@@ -34,8 +30,7 @@ public class ML implements Serializable
 
     public void muestra(NodoLista r, String s)
     {
-        while (r != null)
-        {
+        while (r != null) {
             System.out.println(s + r.getEtiqueta());
             muestra(r.getAbajo(), s + "\t");
             r = r.getSig();
@@ -44,27 +39,67 @@ public class ML implements Serializable
 
     public void borrar(NodoLista r, String s[], int nivel, NodoLista n[])
     {
-        if (nivel == s.length - 1)
-        {
+        if (nivel == s.length - 1) {
             ListaDoblementeLigada lista = new ListaDoblementeLigada();
             lista.setr(r);
             n[1] = lista.eliminar(s[nivel]);
             n[0] = lista.getr();
-        } else
-        {
+        } else {
             ListaDoblementeLigada lista = new ListaDoblementeLigada();
             lista.setr(r);
             NodoLista aux = lista.buscar(s[nivel]);
-            if (aux != null)
-            {
+            if (aux != null) {
                 borrar(aux.getAbajo(), s, nivel + 1, n);
                 aux.setAbajo(n[0]);
                 n[0] = r;
-            } else
-            {
+            } else {
                 n[0] = r;
             }
         }
+    }
+
+    public NodoLista borrarRetornado(NodoLista r, String s[], int nivel, NodoLista n[])
+    {
+        if (nivel == s.length - 1) {
+            ListaDoblementeLigada lista = new ListaDoblementeLigada();
+            lista.setr(r);
+            n[1] = lista.eliminar(s[nivel]);
+            n[0] = lista.getr();
+            return n[1];
+        } else {
+            ListaDoblementeLigada lista = new ListaDoblementeLigada();
+            lista.setr(r);
+            NodoLista aux = lista.buscar(s[nivel]);
+            if (aux != null) {
+                borrarRetornado(aux.getAbajo(), s, nivel + 1, n);
+                aux.setAbajo(n[0]);
+                n[0] = r;
+            } else {
+                n[0] = r;
+            }
+            
+        }
+        return n[1];
+    }
+
+    public NodoLista busca(NodoLista r, String s)
+    {
+        if (r != null) {
+            if (r.getAnt().getEtiqueta().compareTo(s) < 0 || r.getEtiqueta().compareTo(s) > 0) {
+                return null;
+            }
+            NodoLista aux = r;
+            do {
+                if (aux.getEtiqueta().equals(s)) {
+                    return aux;
+                }
+                if (aux.getEtiqueta().compareTo(s) > 0) {
+                    return null;
+                }
+                aux = aux.getSig();
+            } while (aux != r);
+        }
+        return null;
     }
 
     public NodoLista<Object> getR()
@@ -76,5 +111,5 @@ public class ML implements Serializable
     {
         this.r = r;
     }
-    
+
 }

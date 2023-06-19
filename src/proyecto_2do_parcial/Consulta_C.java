@@ -35,9 +35,11 @@ public class Consulta_C extends javax.swing.JFrame
         FarmaciaCombo.removeAllItems();
         FarmaciaCombo.addItem("Seleccione una farmacia...");
         aux = mul.r;
-        if (aux != null) {
+        if (aux != null)
+        {
             //aqui se llena el combobox con el primer nivel, osease, farmacias
-            while (aux != null) {
+            while (aux != null)
+            {
                 FarmaciaCombo.addItem(aux.etiqueta);
                 aux = aux.getSig();
             }
@@ -48,8 +50,10 @@ public class Consulta_C extends javax.swing.JFrame
     public int busDic(String buscado)
     {
 
-        for (int i = 0; i < diccionario.length; i++) {
-            if (diccionario[i] == buscado) {
+        for (int i = 0; i < diccionario.length; i++)
+        {
+            if (diccionario[i] == buscado)
+            {
                 return 1;
             }
         }
@@ -71,8 +75,12 @@ public class Consulta_C extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         tCiudad = new javax.swing.JTable();
         FarmaciaCombo = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel1.setText("Consulta de Ciudades");
@@ -101,27 +109,40 @@ public class Consulta_C extends javax.swing.JFrame
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/Casa.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
-                            .addComponent(FarmaciaCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(FarmaciaCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(172, 172, 172)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(FarmaciaCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -133,9 +154,7 @@ public class Consulta_C extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,26 +170,36 @@ public class Consulta_C extends javax.swing.JFrame
     private void FarmaciaComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FarmaciaComboActionPerformed
     {//GEN-HEADEREND:event_FarmaciaComboActionPerformed
         NodoLista n = mul.getR();
-        NodoLista nn ;
+        NodoLista nn;
         NodoLista nr;
-        
+
         ArrayList<Object> nodos = new ArrayList<>();
-        
-        while (n != null) {
-            if (n.getEtiqueta() == FarmaciaCombo.getSelectedItem()) {
-                if (n.getAbajo() != null) {
+
+        while (n != null)
+        {
+            if (n.getEtiqueta() == FarmaciaCombo.getSelectedItem())
+            {
+                if (n.getAbajo() != null)
+                {
                     nr = n.getAbajo();
-                    while (nr != null) {
+                    while (nr != null)
+                    {
                         nodos.add(nr);
                         nr = nr.getSig();
                     }
                 }
-            } 
-                n = n.getSig();
+            }
+            n = n.getSig();
         }
         //preguntar si tiene abajo, si si entrar en otra función para recorrer el otro nivel
-      llenaTabla(nodos);
+        llenaTabla(nodos);
     }//GEN-LAST:event_FarmaciaComboActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,27 +211,34 @@ public class Consulta_C extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Consulta_C.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Consulta_C.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Consulta_C.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Consulta_C.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
@@ -235,6 +271,7 @@ public class Consulta_C extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> FarmaciaCombo;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -243,18 +280,21 @@ public class Consulta_C extends javax.swing.JFrame
 
     private void llenaTabla(ArrayList c)
     {
-         DefaultTableModel dt;
-         
-          dt = new DefaultTableModel(new String[]{"Ciudad", "Estado", "Municipio"}, c.size());  
-        
+        DefaultTableModel dt;
+
+        dt = new DefaultTableModel(new String[]
+        {
+            "Ciudad", "Estado", "Municipio"
+        }, c.size());
+
         tCiudad.setModel(dt);
         TableModel modeldata = tCiudad.getModel();
 
-        
-        for (int j = 0; j <c.size(); j++) {
-            var FarcFarmacia =  c.get(j);
+        for (int j = 0; j < c.size(); j++)
+        {
+            var FarcFarmacia = c.get(j);
             NodoLista ff = (NodoLista) FarcFarmacia;
-            Models.Ciudades f = (Models.Ciudades)  ff.getObj();
+            Models.Ciudades f = (Models.Ciudades) ff.getObj();
             modeldata.setValueAt(f.getCiudad(), j, 0);
             modeldata.setValueAt(f.getEstado(), j, 1);
             modeldata.setValueAt(f.getMunicipio(), j, 2);
