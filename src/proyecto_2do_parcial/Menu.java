@@ -63,6 +63,8 @@ public class Menu extends javax.swing.JFrame
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem14 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú");
@@ -247,6 +249,20 @@ public class Menu extends javax.swing.JFrame
             }
         });
         jMenu4.add(jMenuItem11);
+        jMenu4.add(jSeparator4);
+
+        jMenuItem14.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/iconoproducto.png"))); // NOI18N
+        jMenuItem14.setText("Comparar Productos");
+        jMenuItem14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem14);
 
         jMenuBar1.add(jMenu4);
 
@@ -326,6 +342,11 @@ public class Menu extends javax.swing.JFrame
         ml = Farmacia.mul;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem14ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem14ActionPerformed
+       new Compara().setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,6 +404,7 @@ public class Menu extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem7;
@@ -392,6 +414,7 @@ public class Menu extends javax.swing.JFrame
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;

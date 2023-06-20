@@ -27,7 +27,9 @@ public class Compara extends javax.swing.JFrame
      */
     public Compara()
     {
-
+        lsarchivo ls = new lsarchivo();
+        multilistalocal = ls.SacaDatos();
+        initComponents();
     }
 
     /**
@@ -49,7 +51,7 @@ public class Compara extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 204, 204));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
@@ -78,7 +80,7 @@ public class Compara extends javax.swing.JFrame
         jLabel7.setFont(new java.awt.Font("MS Reference Sans Serif", 2, 18)); // NOI18N
         jLabel7.setText("Ingrese Código de Producto:");
 
-        jButton1.setText("Eliminar");
+        jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -104,19 +106,16 @@ public class Compara extends javax.swing.JFrame
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(215, 215, 215)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(jButton2))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,78 +125,95 @@ public class Compara extends javax.swing.JFrame
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2))
-                .addGap(267, 267, 267)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(168, 168, 168)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                    .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(526, 526, 526))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, -1, 550));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-    {//GEN-HEADEREND:event_jButton2ActionPerformed
-        new Menu().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-
-        lsarchivo ls = new lsarchivo();
-        ML mul = ls.SacaDatos();
-        ArrayList<NodoLista> lista = new ArrayList();
-        NodoLista raiz = mul.getR();
-
-        while (raiz != null) { //FARMACIAS
-            if (raiz.getAbajo() != null)
-            {
-                raiz = raiz.getAbajo();
-                while (raiz != null) { //CIUDADES
-                    if (raiz.getAbajo() != null)
-                    {
-                        raiz = raiz.getAbajo();
-                        while (raiz != null) { //Sucursales
-                            if (raiz.getAbajo() != null)
-                            {
-                                raiz = raiz.getAbajo();
-                                while (raiz != null) { //Producto
-                                    if(raiz.getEtiqueta().equals(ProductDelete.getText()))
-                                    {
-                                        lista.add(raiz);
-                                    }
-                                    raiz = raiz.getSig();
-                                }
-                            }
-                            raiz = raiz.getSig();
-                        }
-                    }
-                    raiz = raiz.getSig();
-                }
-            }
-            raiz = raiz.getSig();
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void ProductDeleteKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_ProductDeleteKeyTyped
-    {//GEN-HEADEREND:event_ProductDeleteKeyTyped
-        ProductDelete.setEnabled(true);
-    }//GEN-LAST:event_ProductDeleteKeyTyped
+    private void ProductDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ProductDeleteActionPerformed
+    {//GEN-HEADEREND:event_ProductDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProductDeleteActionPerformed
 
     private void ProductDeleteKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_ProductDeleteKeyPressed
     {//GEN-HEADEREND:event_ProductDeleteKeyPressed
         ProductDelete.setEnabled(true);
     }//GEN-LAST:event_ProductDeleteKeyPressed
 
-    private void ProductDeleteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ProductDeleteActionPerformed
-    {//GEN-HEADEREND:event_ProductDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ProductDeleteActionPerformed
+    private void ProductDeleteKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_ProductDeleteKeyTyped
+    {//GEN-HEADEREND:event_ProductDeleteKeyTyped
+        ProductDelete.setEnabled(true);
+    }//GEN-LAST:event_ProductDeleteKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        lsarchivo ls = new lsarchivo();
+        ML mul = ls.SacaDatos();
+        ArrayList<NodoLista> lista = new ArrayList();
+        ArrayList<NodoLista> listasuc = new ArrayList();
+        NodoLista raiz = mul.getR();
+        NodoLista raizc = mul.getR();
+        NodoLista raizs= mul.getR();
+        NodoLista raizp = mul.getR();
+
+        while (raiz != null)
+        { //FARMACIAS
+            if (raiz.getAbajo() != null)
+            {
+                raizc = raiz.getAbajo();
+                while (raizc != null)
+                { //CIUDADES
+                    if (raizc.getAbajo() != null)
+                    {
+                        raizs = raizc.getAbajo();
+                        while (raizs != null)
+                        { //Sucursales
+                            if (raizs.getAbajo() != null)
+                            {
+                                raizp = raizs.getAbajo();
+                                while (raizp != null)
+                                { //Producto
+                                    if (raizp.getEtiqueta().equals(ProductDelete.getText()))
+                                    {
+                                        lista.add(raizp);
+                                        listasuc.add(raizs);
+                                        JOptionPane.showMessageDialog(this, "Producto Agregado");
+                                    }
+                                    raizp = raizp.getSig();
+                                }
+                            }
+                            raizs = raizs.getSig();
+                        }
+                    }
+                    raizc = raizc.getSig();
+                }
+            }
+            raiz = raiz.getSig();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+    {//GEN-HEADEREND:event_jButton2ActionPerformed
+        new Menu().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,20 +225,27 @@ public class Compara extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex)
+        {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
+        } catch (InstantiationException ex)
+        {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
+        } catch (IllegalAccessException ex)
+        {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
