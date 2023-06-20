@@ -111,46 +111,7 @@ public class Compara extends javax.swing.JFrame
 
     private void SComboActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_SComboActionPerformed
     {//GEN-HEADEREND:event_SComboActionPerformed
-        NodoLista n = mul.getR();
-        NodoLista nr;
-        NodoLista nrs;
-        NodoLista nrsp;
-
-        ArrayList<Object> l = new ArrayList<>();
-
-        while (n != null)
-        {
-            if (n.getAbajo() != null)
-            {
-                nr = n.getAbajo();
-                while (nr != null)
-                {
-                    if (nr.getAbajo() != null)
-                    {
-                        nrs = nr.getAbajo();
-                        while (nrs != null)
-                        {
-                            if (nrs.getEtiqueta() == SCombo.getSelectedItem())
-                            {
-                                if (nrs.getAbajo() != null)
-                                {
-                                    nrsp = nrs.getAbajo();
-                                    while (nrsp != null)
-                                    {
-                                        l.add(nrsp);
-                                        nrsp = nrsp.getSig();
-                                    }
-                                }
-                            }
-                            nrs = nrs.getSig();
-                        }
-                    }
-                    nr = nr.getSig();
-                }
-            }
-            n = n.getSig();
-        }
-        llenaTabla(l);
+        
     }//GEN-LAST:event_SComboActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
