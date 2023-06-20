@@ -6,11 +6,28 @@
 package proyecto_2do_parcial;
 
 import Models.lsarchivo;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -21,6 +38,9 @@ public class Compara extends javax.swing.JFrame
 
     ML multilistalocal = new ML();
     NodoLista AuxGen = new NodoLista();
+    ArrayList<Models.Productos> productos;
+    ArrayList<Models.Sucursales> sucs;
+    private int[] data;
 
     /**
      * Creates new form Compara
@@ -30,7 +50,11 @@ public class Compara extends javax.swing.JFrame
         lsarchivo ls = new lsarchivo();
         multilistalocal = ls.SacaDatos();
         initComponents();
+        jButton3.setEnabled(false);
+
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,6 +72,7 @@ public class Compara extends javax.swing.JFrame
         jLabel7 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 204, 204));
@@ -99,6 +124,15 @@ public class Compara extends javax.swing.JFrame
             }
         });
 
+        jButton3.setText("Ver En Grafica");
+        jButton3.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,12 +143,17 @@ public class Compara extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
                 .addComponent(jButton2))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -130,7 +169,9 @@ public class Compara extends javax.swing.JFrame
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ProductDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(526, 526, 526))
+                .addGap(173, 173, 173)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(300, 300, 300))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,35 +207,27 @@ public class Compara extends javax.swing.JFrame
     {//GEN-HEADEREND:event_jButton1ActionPerformed
         lsarchivo ls = new lsarchivo();
         ML mul = ls.SacaDatos();
-        ArrayList<NodoLista> lista = new ArrayList();
-        ArrayList<NodoLista> listasuc = new ArrayList();
+        ArrayList<Models.Productos> lista = new ArrayList();
+        ArrayList<Models.Sucursales> listasuc = new ArrayList();
         NodoLista raiz = mul.getR();
         NodoLista raizc = mul.getR();
-        NodoLista raizs= mul.getR();
+        NodoLista raizs = mul.getR();
         NodoLista raizp = mul.getR();
 
-        while (raiz != null)
-        { //FARMACIAS
-            if (raiz.getAbajo() != null)
-            {
+        while (raiz != null) { //FARMACIAS
+            if (raiz.getAbajo() != null) {
                 raizc = raiz.getAbajo();
-                while (raizc != null)
-                { //CIUDADES
-                    if (raizc.getAbajo() != null)
-                    {
+                while (raizc != null) { //CIUDADES
+                    if (raizc.getAbajo() != null) {
                         raizs = raizc.getAbajo();
-                        while (raizs != null)
-                        { //Sucursales
-                            if (raizs.getAbajo() != null)
-                            {
+                        while (raizs != null) { //Sucursales
+                            if (raizs.getAbajo() != null) {
                                 raizp = raizs.getAbajo();
-                                while (raizp != null)
-                                { //Producto
-                                    if (raizp.getEtiqueta().equals(ProductDelete.getText()))
-                                    {
-                                        lista.add(raizp);
-                                        listasuc.add(raizs);
-                                        JOptionPane.showMessageDialog(this, "Producto Agregado");
+                                while (raizp != null) { //Producto
+                                    if (raizp.getEtiqueta().equals(ProductDelete.getText())) {
+                                        lista.add((Models.Productos) raizp.getObj());
+                                        listasuc.add((Models.Sucursales) raizs.getObj());
+                                        
                                     }
                                     raizp = raizp.getSig();
                                 }
@@ -206,14 +239,40 @@ public class Compara extends javax.swing.JFrame
                 }
             }
             raiz = raiz.getSig();
-        }
+        } 
+        productos =lista;
+        sucs = listasuc;
+        jButton3.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
     {//GEN-HEADEREND:event_jButton2ActionPerformed
         new Menu().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton3ActionPerformed
+    {//GEN-HEADEREND:event_jButton3ActionPerformed
+        int bnd =0;
+        
+        if(productos.size()==0){
+            bnd=1;
+        }
+        if(sucs.size()==0){
+            bnd=1;
+        }
+        
+        if(bnd!=1){
+            Grafica g = new Grafica(productos, sucs,ProductDelete.getText());
+            g.setVisible(true);
+            this.dispose(); 
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,27 +284,20 @@ public class Compara extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Compara.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -264,6 +316,7 @@ public class Compara extends javax.swing.JFrame
     private javax.swing.JTextField ProductDelete;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
